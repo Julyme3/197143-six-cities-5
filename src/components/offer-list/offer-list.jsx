@@ -14,9 +14,9 @@ class OfferList extends PureComponent {
   }
 
   toggleActiveCard(activeCard) {
-    this.setState(() => ({
+    this.setState({
       activeCard
-    }));
+    });
   }
 
   render() {
