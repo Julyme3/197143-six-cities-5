@@ -8,22 +8,31 @@ import FavoritesScreen from "../favorites-screen/favorites-screen";
 
 const App = (props) => {
 
-  const {placesCount} = props;
+  const {placesCount, offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <MainScreen placesCount={placesCount} />
+          <MainScreen
+            placesCount={placesCount}
+            offers={offers}
+          />
         </Route>
         <Route path="/login" exact>
           <AuthScreen />
         </Route>
         <Route path="/favorites" exact>
-          <FavoritesScreen />
+          <FavoritesScreen
+            offers={offers}
+          />
         </Route>
         <Route path="/offer/:id" exact>
-          <RoomScreen />
+          <RoomScreen
+            offer={offers[0]}
+            reviews={reviews}
+            offers={offers.slice(0, 3)}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -32,6 +41,8 @@ const App = (props) => {
 
 App.propTypes = {
   placesCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
 };
 
 export default App;
