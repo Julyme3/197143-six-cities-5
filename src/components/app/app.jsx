@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {OffersType, ReviewsType} from "../../types";
 import MainScreen from "../main-screen/main-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 import RoomScreen from "../room-screen/room-screen";
@@ -41,8 +42,8 @@ const App = (props) => {
 
 App.propTypes = {
   placesCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
+  offers: OffersType,
+  reviews: ReviewsType,
 };
 
 export default App;

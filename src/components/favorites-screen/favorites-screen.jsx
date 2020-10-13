@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
+import {OffersType} from "../../types";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 
@@ -122,7 +122,7 @@ const FavoritesScreen = (props) => {
 };
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: OffersType
 };
 
 export default FavoritesScreen;

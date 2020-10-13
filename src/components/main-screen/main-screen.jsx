@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {OffersType} from "../../types";
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
+import Map from "../map/map";
 
 const MainPage = (props) => {
 
@@ -79,7 +81,9 @@ const MainPage = (props) => {
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} />
+              </section>
             </div>
           </div>
         </div>
@@ -90,7 +94,7 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   placesCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: OffersType,
 };
 
 export default MainPage;
