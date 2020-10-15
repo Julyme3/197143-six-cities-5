@@ -1,6 +1,5 @@
 import React from "react";
-import {PropTypes} from "prop-types";
-import {OfferType, ReviewsType} from "../../types";
+import {OfferType, ReviewsType, OffersType} from "../../types";
 import Header from "../header/header";
 import OfferCard from "../offer-card/offer-card";
 import ReviewForm from "../review-form/review-form";
@@ -159,7 +158,7 @@ const RoomScreen = (props) => {
 RoomScreen.propTypes = {
   offer: OfferType,
   reviews: ReviewsType,
-  offers: PropTypes.array,
+  offers: OffersType,
 };
 
 export default RoomScreen;

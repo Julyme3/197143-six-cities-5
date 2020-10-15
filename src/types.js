@@ -29,3 +29,5 @@ export const ReviewsType = PropTypes.arrayOf(PropTypes.shape({
   date: PropTypes.instanceOf(Date).isRequired,
   text: PropTypes.string,
 }));
+
+export const OffersType = PropTypes.arrayOf(OfferType).isRequired;
