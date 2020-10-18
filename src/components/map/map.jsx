@@ -16,6 +16,11 @@ class Map extends PureComponent {
     this.init();
   }
 
+  componentDidUpdate() {
+    this._map.remove();
+    this.init();
+  }
+
   init() {
     const {offers} = this.props;
 
@@ -24,19 +29,19 @@ class Map extends PureComponent {
       iconSize: [30, 30]
     });
 
-    const map = leaflet.map(`map`, {
+    this._map = leaflet.map(`map`, {
       center: city,
       zoom: ZOOM,
       zoomControl: false,
       marker: true
     });
-    map.setView(city, ZOOM);
+    this._map.setView(city, ZOOM);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this._map);
 
     const offerCords = [...offers.map((offer) => offer.coords), city];
 
@@ -45,7 +50,7 @@ class Map extends PureComponent {
 
       leaflet
         .marker(offerCoord, {icon})
-        .addTo(map);
+        .addTo(this._map);
     });
   }
 

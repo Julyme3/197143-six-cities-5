@@ -9,16 +9,13 @@ import FavoritesScreen from "../favorites-screen/favorites-screen";
 
 const App = (props) => {
 
-  const {placesCount, offers, reviews} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <MainScreen
-            placesCount={placesCount}
-            offers={offers}
-          />
+          <MainScreen />
         </Route>
         <Route path="/login" exact>
           <AuthScreen />
