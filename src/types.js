@@ -30,4 +30,6 @@ export const ReviewsType = PropTypes.arrayOf(PropTypes.shape({
   text: PropTypes.string,
 }));
 
+export const CitiesType = PropTypes.arrayOf(PropTypes.string).isRequired;
+
 export const OffersType = PropTypes.arrayOf(OfferType).isRequired;
