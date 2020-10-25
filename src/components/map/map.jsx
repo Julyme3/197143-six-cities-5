@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {OffersType} from "../../types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -43,7 +44,7 @@ class Map extends PureComponent {
       })
       .addTo(this._map);
 
-    const offerCords = [...offers.map((offer) => offer.coords), city];
+    const offerCords = [...offers.map((offer) => offer.coords)];
 
     offerCords.forEach((offer) => {
       const offerCoord = [offer[0], offer[1]];
@@ -55,14 +56,17 @@ class Map extends PureComponent {
   }
 
   render() {
+    const {width, height} = this.props;
     return (
-      <div id="map" style={{width: `512px`, height: `752px`}}></div>
+      <div id="map" style={{width, height}}></div>
     );
   }
 }
 
 Map.propTypes = {
-  offers: OffersType
+  offers: OffersType,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
 export default Map;

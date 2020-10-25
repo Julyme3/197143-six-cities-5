@@ -1,12 +1,18 @@
 import React from "react";
+import {connect} from "react-redux";
 import {OfferType, ReviewsType, OffersType} from "../../types";
 import Header from "../header/header";
-import OfferCard from "../offer-card/offer-card";
 import ReviewForm from "../review-form/review-form";
+import ReviewsList from "../reviews-list/reviews-list";
+import Map from "../map/map";
+import OfferListNear from "../offer-list-near/offer-list-near";
+import {getNearestOffers} from "../../offers";
+import {Type} from "../../const";
 
 const RoomScreen = (props) => {
-  const {offer, reviews, offers} = props;
+  const {offer, reviews} = props;
   const {details, user} = offer;
+  const nearestOffers = getNearestOffers(props.offers.filter((item) => item.typeComponent === Type.NEAR), offer);
 
   return (
     <div className="page">
@@ -19,7 +25,8 @@ const RoomScreen = (props) => {
                 return (
                   <div
                     key={`${i}-${srcItem}`}
-                    className="property__image-wrapper">
+                    className="property__image-wrapper"
+                  >
                     <img className="property__image" src={srcItem} alt="Photo studio" />
                   </div>
                 );
@@ -98,56 +105,25 @@ const RoomScreen = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  {reviews.length && reviews.map((review, i) => {
-                    return (
-                      <li
-                        className="reviews__item"
-                        key={`${i}-${review.date}`}
-                      >
-                        <div className="reviews__user user">
-                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                            <img className="reviews__avatar user__avatar" src={review.src} width="54" height="54" alt="Reviews avatar" />
-                          </div>
-                          <span className="reviews__user-name">
-                            {review.name}
-                          </span>
-                        </div>
-                        <div className="reviews__info">
-                          <div className="reviews__rating rating">
-                            <div className="reviews__stars rating__stars">
-                              <span style={{width: `80%`}}></span>
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
-                          <p className="reviews__text">
-                            {review.text}
-                          </p>
-                          <time className="reviews__time" dateTime={review.date.toString()}>{review.date.toString()}</time>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <ReviewsList reviews={reviews} />
                 <ReviewForm />
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map
+              offers={[...nearestOffers, offer]}
+              width={`100%`}
+              height={`579px`}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offers.length && offers.map((nearOffer) => {
-                return (
-                  <OfferCard
-                    key={nearOffer.id}
-                    offer={nearOffer}
-                  />
-                );
-              })}
-            </div>
+            <OfferListNear
+              offers={nearestOffers}
+            />
           </section>
         </div>
       </main>
@@ -161,4 +137,10 @@ RoomScreen.propTypes = {
   offers: OffersType,
 };
 
-export default RoomScreen;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export {RoomScreen};
+
+export default connect(mapStateToProps, null)(RoomScreen);

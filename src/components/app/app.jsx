@@ -29,7 +29,6 @@ const App = (props) => {
           <RoomScreen
             offer={offers[0]}
             reviews={reviews}
-            offers={offers.slice(0, 3)}
           />
         </Route>
       </Switch>

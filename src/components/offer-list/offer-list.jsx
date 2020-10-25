@@ -1,45 +1,52 @@
-import React, {PureComponent} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
+import OfferCardMain from "../offer-card-main/offer-card-main";
+import OfferCardNear from "../offer-card-near/offer-card-near";
 import {OffersType} from '../../types';
+import {Type} from '../../const';
 
-class OfferList extends PureComponent {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      activeCard: null
-    };
+const OfferList = (props) => {
+  const {offers, className} = props;
 
-    this.toggleActiveCard = this.toggleActiveCard.bind(this);
-  }
+  const getComponentByType = (type, offer) => {
+    switch (type) {
+      case Type.MAIN:
+        return <OfferCardMain
+          offer={offer}
+          handleCardHover={props.handleCardHover}
+        />;
+      case Type.NEAR:
+        return <OfferCardNear
+          offer={offer}
+        />;
+    }
 
-  toggleActiveCard(activeCard) {
-    this.setState({
-      activeCard
-    });
-  }
+    return <OfferCard
+      offer={offer}
+    />;
+  };
 
-  render() {
-    const {offers} = this.props;
-
-    return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.length && offers.map((offer) => {
-          return (
-            <OfferCard
-              key={offer.id}
-              offer={offer}
-              handleCardHover={this.toggleActiveCard}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={className}>
+      {offers.length && offers.map((offer) =>
+        (
+          <React.Fragment
+            key={offer.id}
+          >
+            {getComponentByType(offer.typeComponent, offer)}
+          </React.Fragment>
+        ))
+      };
+    </div>
+  );
+};
 
 OfferList.propTypes = {
   offers: OffersType,
+  className: PropTypes.string,
+  handleCardHover: PropTypes.func,
 };
 
 export default OfferList;
