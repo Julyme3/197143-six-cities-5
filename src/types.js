@@ -22,13 +22,16 @@ export const OfferType = PropTypes.shape({
   }).isRequired,
 });
 
-export const ReviewsType = PropTypes.arrayOf(PropTypes.shape({
+export const ReviewType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string,
   raiting: PropTypes.number.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   text: PropTypes.string,
-}));
+});
+
+export const ReviewsType = PropTypes.arrayOf(ReviewType);
 
 export const CitiesType = PropTypes.arrayOf(PropTypes.string).isRequired;
 

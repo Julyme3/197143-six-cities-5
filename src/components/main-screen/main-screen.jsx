@@ -5,7 +5,7 @@ import {ActionCreator} from "../../store/actions";
 import {OffersType} from "../../types";
 import cities from "../../mocks/cities";
 import Header from "../header/header";
-import OfferList from "../offer-list/offer-list";
+import OfferListMain from "../offer-list-main/offer-list-main";
 import Map from "../map/map";
 import ListCities from "../list-cities/list-cities";
 
@@ -55,7 +55,7 @@ const MainPage = (props) => {
                   <option className="places__option" value="top-rated">Top rated first</option>
                 </select> */}
               </form>
-              <OfferList
+              <OfferListMain
                 offers={offers}
               />
             </section>
@@ -63,6 +63,8 @@ const MainPage = (props) => {
               <section className="cities__map map">
                 <Map
                   offers={offers}
+                  width={`512px`}
+                  height={`752px`}
                 />
               </section>
             </div>

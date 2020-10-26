@@ -12,3 +12,8 @@ export const TitleRaiting = {
   BADLY: `badly`,
   TERRIBLY: `terribly`,
 };
+
+export const Type = {
+  MAIN: `main`,
+  NEAR: `near`,
+};

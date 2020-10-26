@@ -2,27 +2,23 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {OfferType} from "../../types";
+import {Type} from "../../const";
 
 const OffserCard = (props) => {
-  const {offer, handleCardHover} = props;
+  const {offer, handleCardHover = undefined, className, classNameInner} = props;
+  const isMainType = offer.typeComponent === Type.MAIN;
 
   return (
     <article
-      className="cities__place-card place-card"
-      onMouseEnter={() => {
-        if (handleCardHover) {
-          handleCardHover(offer);
-          return;
-        }
-        return;
-      }}
+      className={`${className} place-card`}
+      onMouseEnter = {isMainType ? () => handleCardHover(offer) : undefined}
     >
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classNameInner} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={offer.src[0]} width="260" height="200" alt="Place image" />
         </a>
@@ -58,6 +54,8 @@ const OffserCard = (props) => {
 OffserCard.propTypes = {
   offer: OfferType,
   handleCardHover: PropTypes.func,
+  className: PropTypes.string,
+  classNameInner: PropTypes.string,
 };
 
 export default OffserCard;
