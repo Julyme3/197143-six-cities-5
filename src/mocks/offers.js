@@ -25,14 +25,14 @@ export default [
   },
   {
     city: `Amsterdam`,
-    typeComponent: `near`,
+    typeComponent: `main`,
     id: 2,
     src: [`img/room.jpg`, `img/apartment-01.jpg`, `img/apartment-02.jpg`],
     isPremium: true,
     name: `Beautiful &amp; luxurious studio at great location`,
     type: `Apartment`,
     raiting: 4.8,
-    price: 120,
+    price: 130,
     isBookmark: true,
     coords: [52.5435353, 4.85309666406198],
     details: {
@@ -56,7 +56,7 @@ export default [
     name: `Beautiful &amp; luxurious studio at great location`,
     type: `Apartment`,
     raiting: 4.8,
-    price: 120,
+    price: 140,
     isBookmark: true,
     coords: [52.16577, 4.929309666406198],
     details: {
@@ -80,7 +80,7 @@ export default [
     name: `Beautiful &amp; luxurious studio at great location`,
     type: `Apartment`,
     raiting: 4.8,
-    price: 120,
+    price: 150,
     isBookmark: true,
     coords: [52.424234, 4.939309666406198],
     details: {
@@ -176,7 +176,7 @@ export default [
     name: `Beautiful &amp; luxurious studio at great location`,
     type: `Apartment`,
     raiting: 4.8,
-    price: 120,
+    price: 140,
     isBookmark: true,
     coords: [52.369553943508, 4.85309666406198],
     details: {
