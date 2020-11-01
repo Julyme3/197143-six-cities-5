@@ -21,7 +21,7 @@ class Map extends PureComponent {
 
   componentDidUpdate({offers: prevOffers}) {
     this.removedMarkers(prevOffers);
-    this.addMarkers(this.props.offers, this.props.activeCardCoords);
+    this.addMarkers(this.props.offers, this.props.activeCardId);
   }
 
   init() {
@@ -43,7 +43,7 @@ class Map extends PureComponent {
     this.addMarkers(offers);
   }
 
-  addMarkers(offers, activeCardCoords) {
+  addMarkers(offers, activeCardId) {
     const LeftIcon = leaflet.Icon.extend({
       options: {
         iconSize: [30, 30],
@@ -53,13 +53,12 @@ class Map extends PureComponent {
     const icon = new LeftIcon({iconUrl: MARKER_URL});
     const activeIcon = new LeftIcon({iconUrl: MARKER_ACTIVE_URL});
     const offerCords = [...offers.map((offer) => offer.coords)];
-    const isActivePin = activeCardCoords ? activeCardCoords.join(`,`) : [];
+    const isActivePin = activeCardId ? activeCardId : null;
 
-    offerCords.forEach((offer) => {
+    offerCords.forEach((offer, i) => {
       const offerCoord = [offer[0], offer[1]];
-
       this._markers.push(leaflet
-        .marker(offerCoord, {icon: offerCoord.join(`,`) === isActivePin ? activeIcon : icon})
+        .marker(offerCoord, {icon: offers[i].id === isActivePin ? activeIcon : icon})
         .addTo(this._map));
     });
   }
@@ -81,7 +80,7 @@ Map.propTypes = {
   offers: OffersType,
   width: PropTypes.string,
   height: PropTypes.string,
-  activeCardCoords: PropTypes.arrayOf(PropTypes.number),
+  activeCardId: PropTypes.number,
 };
 
 export default Map;

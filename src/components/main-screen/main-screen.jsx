@@ -16,7 +16,7 @@ class MainPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeCardCoords: [],
+      activeCardId: null,
       activeSortType: SortType.POPULAR,
     };
     this.handleMouseEnterCard = this.handleMouseEnterCard.bind(this);
@@ -44,15 +44,15 @@ class MainPage extends PureComponent {
     });
   }
 
-  handleMouseEnterCard(activeCardCoords) {
+  handleMouseEnterCard(activeCardId) {
     this.setState({
-      activeCardCoords
+      activeCardId
     });
   }
 
   handleMouseLeaveCard() {
     this.setState({
-      activeCardCoords: [],
+      activeCardId: null,
     });
   }
 
@@ -100,7 +100,7 @@ class MainPage extends PureComponent {
                     offers={offers}
                     width={`512px`}
                     height={`752px`}
-                    activeCardCoords={this.state.activeCardCoords}
+                    activeCardId={this.state.activeCardId}
                   />
                 </section>
               </div>
