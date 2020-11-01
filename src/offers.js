@@ -33,17 +33,13 @@ export const sortByRatedTop = (offerA, offerB) => offerB.raiting - offerA.raitin
 export const sortOffers = (sort, offers, defaultOffers) => {
   switch (sort) {
     case SortType.PRICE_TO_HIGH:
-      offers.sort(sortByPriceHigh);
-      break;
+      return offers.slice().sort(sortByPriceHigh);
     case SortType.PRICE_TO_LOW:
-      offers.sort(sortByPriceLow);
-      break;
+      return offers.slice().sort(sortByPriceLow);
     case SortType.TOP_RATED:
-      offers.sort(sortByRatedTop);
-      break;
+      return offers.slice().sort(sortByRatedTop);
     case SortType.POPULAR:
-      offers = defaultOffers;
-      break;
+      return defaultOffers;
   }
-  return offers;
+  return defaultOffers;
 };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {SortType} from "../../const";
 import {OffersType} from "../../types";
 
-const sortes = [SortType.POPULAR, SortType.PRICE_TO_HIGH, SortType.PRICE_TO_LOW, SortType.TOP_RATED];
+const sortes = Object.values(SortType);
 
 const Sort = ({activeSortType, onClickSort}) => {
   return (
