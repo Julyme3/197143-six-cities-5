@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/actions";
@@ -8,75 +8,113 @@ import Header from "../header/header";
 import OfferListMain from "../offer-list-main/offer-list-main";
 import Map from "../map/map";
 import ListCities from "../list-cities/list-cities";
+import Sort from "../sort/sort";
+import {sortOffers, getOffersByCity} from "../../offers";
+import {SortType} from "../../const";
 
-const MainPage = (props) => {
+class MainPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeCardId: null,
+      activeSortType: SortType.POPULAR,
+    };
+    this.handleMouseEnterCard = this.handleMouseEnterCard.bind(this);
+    this.handleCityClick = this.handleCityClick.bind(this);
+    this.handleSortClick = this.handleSortClick.bind(this);
+    this.handleMouseLeaveCard = this.handleMouseLeaveCard.bind(this);
+  }
 
-  const {offers, city, setOffers, setSelectedCity} = props;
+  handleCityClick(selectedCity) {
+    this.props.setSelectedCity(selectedCity);
 
-  const handleCityClick = (selectedCity) => {
-    setSelectedCity(selectedCity);
-    setOffers(selectedCity);
-  };
+    const offersByCity = getOffersByCity(this.props.defaultOffers, selectedCity);
 
-  return (
-    <div className="page page--gray page--main">
-      <Header />
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <ListCities
-            cities={cities}
-            onClickHandler={handleCityClick}
-          />
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex ="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex ="0">Popular</li>
-                  <li className="places__option" tabIndex ="0">Price: low to high</li>
-                  <li className="places__option" tabIndex ="0">Price: high to low</li>
-                  <li className="places__option" tabIndex ="0">Top rated first</li>
-                </ul>
-                {/* <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
-                  <option className="places__option" value="to-high">Price: low to high</option>
-                  <option className="places__option" value="to-low">Price: high to low</option>
-                  <option className="places__option" value="top-rated">Top rated first</option>
-                </select> */}
-              </form>
-              <OfferListMain
-                offers={offers}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
+    if (this.state.activeSortType !== SortType.POPULAR) {
+      this.props.setOffers(this.getSortedOffers(offersByCity, this.state.activeSortType));
+      return;
+    }
+    this.props.setOffers(offersByCity);
+  }
+
+  handleSortClick(sort) {
+    this.props.setOffers(this.getSortedOffers(this.props.offers, sort));
+    this.setState({
+      activeSortType: sort,
+    });
+  }
+
+  handleMouseEnterCard(activeCardId) {
+    this.setState({
+      activeCardId
+    });
+  }
+
+  handleMouseLeaveCard() {
+    this.setState({
+      activeCardId: null,
+    });
+  }
+
+  getSortedOffers(initOffers, sort) {
+    let defaultOffersByCity;
+    if (sort === SortType.POPULAR) {
+      defaultOffersByCity = getOffersByCity(this.props.defaultOffers, this.props.city);
+    }
+    return sortOffers(sort, initOffers, defaultOffersByCity);
+  }
+
+  render() {
+    const {offers, city} = this.props;
+
+    return (
+      <div className="page page--gray page--main">
+        <Header />
+        <main className="page__main page__main--index">
+          <h1 className="visually-hidden">Cities</h1>
+          <div className="tabs">
+            <ListCities
+              cities={cities}
+              onClickHandler={this.handleCityClick}
+            />
+          </div>
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers.length} places to stay in {city}</b>
+                <Sort
                   offers={offers}
-                  width={`512px`}
-                  height={`752px`}
+                  onClickSort={this.handleSortClick}
+                  activeSortType={this.state.activeSortType}
+                />
+                <OfferListMain
+                  offers={offers}
+                  onMouseEnterCard={this.handleMouseEnterCard}
+                  onMouseLeaveCard={this.handleMouseLeaveCard}
                 />
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    offers={offers}
+                    width={`512px`}
+                    height={`752px`}
+                    activeCardId={this.state.activeCardId}
+                  />
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-    </div>
-  );
-};
+        </main>
+      </div>
+    );
+  }
+}
 
 MainPage.propTypes = {
   offers: OffersType,
+  defaultOffers: OffersType,
   city: PropTypes.string.isRequired,
   setOffers: PropTypes.func.isRequired,
   setSelectedCity: PropTypes.func.isRequired,
@@ -85,6 +123,7 @@ MainPage.propTypes = {
 const mapStateToProps = (state) => ({
   offers: state.offers,
   city: state.city,
+  defaultOffers: state.defaultOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

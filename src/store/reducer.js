@@ -6,6 +6,7 @@ import {getOffersByCity} from "../offers";
 
 const initialState = {
   city: cities[0],
+  defaultOffers: offers,
   offers: getOffersByCity(offers, cities[0]),
 };
 

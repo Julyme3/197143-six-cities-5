@@ -1,4 +1,5 @@
 import {compare} from "./utils";
+import {SortType} from "./const";
 
 export const getOffersByCity = (offers, selectedCity) => offers.filter((offer) => offer.city === selectedCity);
 export const getNearestOffers = (offers, selectedOffer) => {
@@ -21,4 +22,24 @@ export const getNearestOffers = (offers, selectedOffer) => {
       return false;
     }
   });
+};
+
+export const sortByPriceHigh = (offerA, offerB) => offerA.price - offerB.price;
+
+export const sortByPriceLow = (offerA, offerB) => offerB.price - offerA.price;
+
+export const sortByRatedTop = (offerA, offerB) => offerB.raiting - offerA.raiting;
+
+export const sortOffers = (sort, offers, defaultOffers) => {
+  switch (sort) {
+    case SortType.PRICE_TO_HIGH:
+      return offers.slice().sort(sortByPriceHigh);
+    case SortType.PRICE_TO_LOW:
+      return offers.slice().sort(sortByPriceLow);
+    case SortType.TOP_RATED:
+      return offers.slice().sort(sortByRatedTop);
+    case SortType.POPULAR:
+      return defaultOffers;
+  }
+  return defaultOffers;
 };
