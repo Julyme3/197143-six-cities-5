@@ -6,7 +6,9 @@ import MainScreen from "../main-screen/main-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 import RoomScreen from "../room-screen/room-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
 
+const MainScreenWrapped = withActiveItem(MainScreen);
 const App = (props) => {
 
   const {offers, reviews} = props;
@@ -15,7 +17,7 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <MainScreen />
+          <MainScreenWrapped />
         </Route>
         <Route path="/login" exact>
           <AuthScreen />

@@ -2,12 +2,11 @@ import {extend} from "../utils";
 import {ActionType} from "./actions";
 import offers from "../mocks/offers";
 import cities from "../mocks/cities";
-import {getOffersByCity} from "../offers";
 
 const initialState = {
-  city: cities[0],
+  activeCity: cities[0],
   defaultOffers: offers,
-  offers: getOffersByCity(offers, cities[0]),
+  offers,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,7 +17,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.SET_SELECTED_CITY_ACTION:
       return extend(state, {
-        city: action.payload,
+        activeCity: action.payload,
       });
     default:
       return state;
