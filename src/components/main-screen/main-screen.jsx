@@ -50,7 +50,7 @@ const MainPage = (props) => {
                 offers={offers}
                 width={`512px`}
                 height={`752px`}
-                activeCardCoords={props.activeItem}
+                activeCardId={props.activeItem}
               />
             </section>
           </div>

@@ -10,7 +10,7 @@ const OffserCard = (props) => {
   return (
     <article
       className={`${className} place-card`}
-      onMouseEnter = {isMainType ? () => onChangeActiveOffer(offer.coords) : undefined}
+      onMouseEnter = {isMainType ? () => onChangeActiveOffer(offer.id) : undefined}
       onMouseLeave = {isMainType ? () => onChangeActiveOffer(null) : undefined}
     >
       {offer.isPremium &&
