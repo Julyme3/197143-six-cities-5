@@ -30,7 +30,7 @@ export const sortByPriceLow = (offerA, offerB) => offerB.price - offerA.price;
 
 export const sortByRatedTop = (offerA, offerB) => offerB.raiting - offerA.raiting;
 
-export const sortOffers = (sort, offers, defaultOffers) => {
+export const sortOffers = (sort, offers) => {
   switch (sort) {
     case SortType.PRICE_TO_HIGH:
       offers.sort(sortByPriceHigh);
@@ -42,8 +42,7 @@ export const sortOffers = (sort, offers, defaultOffers) => {
       offers.sort(sortByRatedTop);
       break;
     case SortType.POPULAR:
-      offers = defaultOffers;
-      break;
+      return offers;
   }
   return offers;
 };

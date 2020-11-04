@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import PropTypes from "prop-types";
 import {SortType} from "../../const";
 import {OffersType} from "../../types";
@@ -40,4 +40,5 @@ Sort.propTypes = {
   activeSortType: PropTypes.string.isRequired,
 };
 
-export default Sort;
+export {Sort};
+export default memo(Sort);

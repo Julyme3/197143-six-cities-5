@@ -5,14 +5,13 @@ import {OfferType} from "../../types";
 import {Type} from "../../const";
 
 const OffserCard = (props) => {
-  const {offer, onMouseEnterCard = undefined, onMouseLeaveCard = undefined, className, classNameInner} = props;
+  const {offer, onChangeActiveOffer = undefined, className, classNameInner} = props;
   const isMainType = offer.typeComponent === Type.MAIN;
-
   return (
     <article
       className={`${className} place-card`}
-      onMouseEnter = {isMainType ? () => onMouseEnterCard(offer.coords) : undefined}
-      onMouseLeave = {isMainType ? () => onMouseLeaveCard() : undefined}
+      onMouseEnter = {isMainType ? () => onChangeActiveOffer(offer.coords) : undefined}
+      onMouseLeave = {isMainType ? () => onChangeActiveOffer(null) : undefined}
     >
       {offer.isPremium &&
         <div className="place-card__mark">
@@ -54,8 +53,7 @@ const OffserCard = (props) => {
 
 OffserCard.propTypes = {
   offer: OfferType,
-  onMouseEnterCard: PropTypes.func,
-  onMouseLeaveCard: PropTypes.func,
+  onChangeActiveOffer: PropTypes.func,
   className: PropTypes.string,
   classNameInner: PropTypes.string,
 };
