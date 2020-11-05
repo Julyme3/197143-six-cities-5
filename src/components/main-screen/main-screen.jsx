@@ -11,6 +11,7 @@ import Sort from "../sort/sort";
 import {sortOffers, getOffersByCity} from "../../offers";
 import {SortType} from "../../const";
 import MainLayout from "../../layouts/main-layout/main-layout";
+import MainScreenEmpty from "../main-screen-empty/main-screen-empty";
 
 const MainPage = (props) => {
   const [activeSortType, setSortType] = useState(SortType.POPULAR);
@@ -21,7 +22,7 @@ const MainPage = (props) => {
   return (
     <MainLayout
       className="page--gray page--main"
-      classNameWrap="page__main--index"
+      classNameWrap={`page__main--index ${offers.length ? `` : `page__main--index-empty`}`}
     >
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
@@ -30,31 +31,34 @@ const MainPage = (props) => {
         />
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {activeCity}</b>
-            <Sort
-              offers={offers}
-              onClickSort={(sort) => setSortType(sort)}
-              activeSortType={activeSortType}
-            />
-            <OfferListMain
-              offers={sortedOffers}
-              onChangeActiveOffer={props.onChangeActiveItem}
-            />
-          </section>
-          <div className="cities__right-section">
-            <section className="cities__map map">
-              <Map
+        {offers.length &&
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+              <Sort
                 offers={offers}
-                width={`512px`}
-                height={`752px`}
-                activeCardId={props.activeItem}
+                onClickSort={(sort) => setSortType(sort)}
+                activeSortType={activeSortType}
+              />
+              <OfferListMain
+                offers={sortedOffers}
+                onChangeActiveOffer={props.onChangeActiveItem}
               />
             </section>
+            <div className="cities__right-section">
+              <section className="cities__map map">
+                <Map
+                  offers={offers}
+                  width={`512px`}
+                  height={`752px`}
+                  activeCardId={props.activeItem}
+                />
+              </section>
+            </div>
           </div>
-        </div>
+          ||
+          <MainScreenEmpty activeCity={activeCity} />}
       </div>
     </MainLayout>
   );

@@ -6,7 +6,7 @@ import cities from "../mocks/cities";
 const initialState = {
   activeCity: cities[0],
   defaultOffers: offers,
-  offers,
+  offers: offers || [],
 };
 
 const reducer = (state = initialState, action) => {
