@@ -15,8 +15,7 @@ const OfferList = (props) => {
       case Type.MAIN:
         return <OfferCardMain
           offer={offer}
-          onMouseEnterCard={props.onMouseEnterCard}
-          onMouseLeaveCard={props.onMouseLeaveCard}
+          onChangeActiveOffer={props.onChangeActiveOffer}
         />;
       case Type.NEAR:
         return <OfferCardNear
@@ -47,8 +46,7 @@ const OfferList = (props) => {
 OfferList.propTypes = {
   offers: OffersType,
   className: PropTypes.string,
-  onMouseEnterCard: PropTypes.func,
-  onMouseLeaveCard: PropTypes.func,
+  onChangeActiveOffer: PropTypes.func,
 };
 
 export default OfferList;

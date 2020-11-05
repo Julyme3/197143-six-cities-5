@@ -1,28 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/actions";
 import {CitiesType} from "../../types";
+import CitiesItem from "../cities-item/cities-item";
 
 const ListCities = (props) => {
-  const {cities, onClickHandler} = props;
+  const {cities, activeCity, setSelectedCity} = props;
+
+  const handleCityClick = (selectedCity) => {
+    setSelectedCity(selectedCity);
+  };
 
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
         {cities.length && cities.map((city) => {
           return (
-            <li
-              onClick={(e) => {
-                e.preventDefault();
-                onClickHandler(e.currentTarget.dataset.name);
-              }}
+            <CitiesItem
               key={city}
-              className="locations__item"
-              data-name={city}
-            >
-              <a className="locations__item-link tabs__item" href="#">
-                <span>{city}</span>
-              </a>
-            </li>
+              city={city}
+              activeCity={activeCity}
+              onClickHandler={handleCityClick}
+            />
           );
         })}
       </ul>
@@ -32,7 +32,20 @@ const ListCities = (props) => {
 
 ListCities.propTypes = {
   cities: CitiesType,
-  onClickHandler: PropTypes.func.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  setSelectedCity: PropTypes.func.isRequired,
 };
 
-export default ListCities;
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSelectedCity(selectedCity) {
+    dispatch(ActionCreator.setSelectedCityAction(selectedCity));
+  },
+});
+
+export {ListCities};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListCities);
