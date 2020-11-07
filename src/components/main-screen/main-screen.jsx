@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
+import {setOffersAction} from "../../store/actions";
 import {OffersType} from "../../types";
 import cities from "../../mocks/cities";
 import OfferListMain from "../offer-list-main/offer-list-main";
@@ -74,14 +74,14 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  defaultOffers: state.defaultOffers,
-  activeCity: state.activeCity,
+  offers: state.DATA.offers,
+  defaultOffers: state.DATA.defaultOffers,
+  activeCity: state.PROCESS.activeCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setOffers(selectedCity) {
-    dispatch(ActionCreator.setOffersAction(selectedCity));
+    dispatch(setOffersAction(selectedCity));
   },
 });
 
