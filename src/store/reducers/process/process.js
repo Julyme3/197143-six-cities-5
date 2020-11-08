@@ -1,9 +1,9 @@
-import {extend} from "../../utils";
-import {ActionType} from "../actions";
-import cities from "../../mocks/cities";
+import {extend} from "../../../utils";
+import {ActionType} from "../../actions";
+import {Cities} from "../../../const";
 
 const initialState = {
-  activeCity: cities[0],
+  activeCity: Cities[0],
 };
 
 const process = (state = initialState, action) => {

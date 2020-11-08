@@ -1,5 +1,5 @@
-import {offerData} from "./offer-data";
-import {process} from "./process";
+import {offerData} from "./offer-data/offer-data";
+import {process} from "./process/process";
 import {combineReducers} from "redux";
 
 const NameSpace = {

@@ -1,10 +1,9 @@
-import {extend} from "../../utils";
-import {ActionType} from "../actions";
-import offers from "../../mocks/offers";
+import {extend} from "../../../utils";
+import {ActionType} from "../../actions";
 
 const initialState = {
-  defaultOffers: offers,
-  offers: offers || [],
+  defaultOffers: [],
+  offers: [],
 };
 
 const offerData = (state = initialState, action) => {
