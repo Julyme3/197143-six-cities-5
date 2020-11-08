@@ -2,7 +2,7 @@ import {offerData} from "./offer-data/offer-data";
 import {process} from "./process/process";
 import {combineReducers} from "redux";
 
-const NameSpace = {
+export const NameSpace = {
   DATA: `DATA`,
   PROCESS: `PROCESS`,
 };
