@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {OffersType} from "../../types";
 import {getOffersSelector} from "../../store/reducers/offer-data/selectors";
+import {getActiveCitySelector} from "../../store/reducers/process/selectors";
 import OfferListMain from "../offer-list-main/offer-list-main";
 import Map from "../map/map";
 import ListCities from "../list-cities/list-cities";
@@ -29,7 +30,7 @@ const MainPage = (props) => {
         />
       </div>
       <div className="cities">
-        {offers.length &&
+        {offers.length ?
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
@@ -57,7 +58,7 @@ const MainPage = (props) => {
               </section>
             </div>
           </div>
-          ||
+          :
           <MainScreenEmpty activeCity={activeCity} />}
       </div>
     </MainLayout>
@@ -73,7 +74,7 @@ MainPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: getOffersSelector(state),
-  activeCity: state.PROCESS.activeCity,
+  activeCity: getActiveCitySelector(state),
 });
 
 export {MainPage};
