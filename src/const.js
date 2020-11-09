@@ -1,8 +1,8 @@
 export const TypeProperty = {
-  APARTMENT: `Apartment`,
-  ROOM: `Room`,
-  HOUSE: `House`,
-  HOTEL: `Hotel`,
+  APARTMENT: `apartment`,
+  ROOM: `room`,
+  HOUSE: `house`,
+  HOTEL: `hotel`,
 };
 
 export const TitleRaiting = {
@@ -24,3 +24,12 @@ export const SortType = {
   PRICE_TO_LOW: `Price: high to low`,
   TOP_RATED: `Top rated first`,
 };
+
+export const Cities = [
+  `Amsterdam`,
+  `Cologne`,
+  `Brussels`,
+  `Paris`,
+  `Hamburg`,
+  `Dusseldorf`,
+];

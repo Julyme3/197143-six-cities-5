@@ -4,8 +4,7 @@ import {OffersType} from "../../types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const city = [52.38333, 4.9];
-const ZOOM = 12;
+
 const MARKER_URL = `img/pin.svg`;
 const MARKER_ACTIVE_URL = `img/pin-active.svg`;
 
@@ -13,6 +12,7 @@ class Map extends PureComponent {
   constructor(props) {
     super(props);
     this._markers = [];
+    this._map = null;
   }
 
   componentDidMount() {
@@ -22,17 +22,18 @@ class Map extends PureComponent {
   componentDidUpdate({offers: prevOffers}) {
     this.removedMarkers(prevOffers);
     this.addMarkers(this.props.offers, this.props.activeCardId);
+    this._map.setView(this.props.cityCoords, this.props.zoom);
   }
 
   init() {
-    const {offers} = this.props;
+    const {offers, cityCoords, zoom} = this.props;
     this._map = leaflet.map(`map`, {
-      center: city,
-      zoom: ZOOM,
+      center: cityCoords,
+      zoom,
       zoomControl: false,
       marker: true
     });
-    this._map.setView(city, ZOOM);
+    this._map.setView(cityCoords, zoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -81,6 +82,8 @@ Map.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   activeCardId: PropTypes.number,
+  cityCoords: PropTypes.arrayOf(PropTypes.number).isRequired,
+  zoom: PropTypes.number.isRequired,
 };
 
 export default Map;

@@ -1,23 +1,22 @@
-import React, {useState} from "react";
+import React, {useState, useMemo} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
 import {OffersType} from "../../types";
-import cities from "../../mocks/cities";
+import {getOffersSelector} from "../../store/reducers/offer-data/selectors";
+import {getActiveCitySelector} from "../../store/reducers/process/selectors";
 import OfferListMain from "../offer-list-main/offer-list-main";
 import Map from "../map/map";
 import ListCities from "../list-cities/list-cities";
 import Sort from "../sort/sort";
-import {sortOffers, getOffersByCity} from "../../offers";
-import {SortType} from "../../const";
+import {sortOffers} from "../../offers";
+import {SortType, Cities} from "../../const";
 import MainLayout from "../../layouts/main-layout/main-layout";
 import MainScreenEmpty from "../main-screen-empty/main-screen-empty";
 
 const MainPage = (props) => {
   const [activeSortType, setSortType] = useState(SortType.POPULAR);
-  const {offers, activeCity, defaultOffers} = props;
-  const defaultOffersByCity = getOffersByCity(defaultOffers, activeCity);
-  const sortedOffers = sortOffers(activeSortType, defaultOffersByCity);
+  const {offers, activeCity} = props;
+  const sortedOffers = useMemo(() => sortOffers(activeSortType, offers), [activeSortType, offers]);
 
   return (
     <MainLayout
@@ -27,11 +26,11 @@ const MainPage = (props) => {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <ListCities
-          cities={cities}
+          cities={Cities}
         />
       </div>
       <div className="cities">
-        {offers.length &&
+        {offers.length ?
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
@@ -50,6 +49,8 @@ const MainPage = (props) => {
               <section className="cities__map map">
                 <Map
                   offers={offers}
+                  cityCoords={offers[0].city.location}
+                  zoom={offers[0].city.zoom}
                   width={`512px`}
                   height={`752px`}
                   activeCardId={props.activeItem}
@@ -57,7 +58,7 @@ const MainPage = (props) => {
               </section>
             </div>
           </div>
-          ||
+          :
           <MainScreenEmpty activeCity={activeCity} />}
       </div>
     </MainLayout>
@@ -66,24 +67,15 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   offers: OffersType,
-  defaultOffers: OffersType,
-  setOffers: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   onChangeActiveItem: PropTypes.func.isRequired,
   activeItem: PropTypes.any,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  defaultOffers: state.defaultOffers,
-  activeCity: state.activeCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setOffers(selectedCity) {
-    dispatch(ActionCreator.setOffersAction(selectedCity));
-  },
+  offers: getOffersSelector(state),
+  activeCity: getActiveCitySelector(state),
 });
 
 export {MainPage};
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps)(MainPage);

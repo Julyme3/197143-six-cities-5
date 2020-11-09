@@ -1,7 +1,7 @@
 import {compare} from "./utils";
 import {SortType} from "./const";
 
-export const getOffersByCity = (offers, selectedCity) => offers.filter((offer) => offer.city === selectedCity);
+export const getOffersByCity = (offers, selectedCity) => offers.filter((offer) => offer.city.name === selectedCity);
 export const getNearestOffers = (offers, selectedOffer) => {
   const MAX_LEN = 4;
   const coordsDiff = offers.map((offer) => {
@@ -42,4 +42,50 @@ export const sortOffers = (sort, offers) => {
       return offers;
   }
   return offers;
+};
+
+export const offerAdaptToClient = (offer) => {
+  const adaptedOffer = Object.assign(
+      {},
+      offer,
+      {
+        src: offer.images,
+        isPremium: offer.is_premium,
+        name: offer.title,
+        raiting: offer.rating,
+        isBookmark: offer.is_favorite,
+        city: {
+          location: [offer.city.location.latitude, offer.city.location.longitude],
+          name: offer.city.name,
+          zoom: offer.city.location.zoom,
+        },
+        coords: [offer.location.latitude, offer.location.longitude],
+        details: {
+          bedrooms: offer.bedrooms,
+          adults: offer.max_adults,
+          insideItems: offer.goods,
+          description: offer.description,
+        },
+        user: {
+          src: offer.host.avatar_url,
+          id: offer.host.id,
+          name: offer.host.name,
+          isSuper: offer.host.is_pro,
+        },
+        typeComponent: `main`
+      }
+  );
+
+  delete adaptedOffer.host;
+  delete adaptedOffer.goods;
+  delete adaptedOffer.max_adults;
+  delete adaptedOffer.bedrooms;
+  delete adaptedOffer.is_premium;
+  delete adaptedOffer.is_favorite;
+  delete adaptedOffer.title;
+  delete adaptedOffer.rating;
+  delete adaptedOffer.images;
+  delete adaptedOffer.location;
+
+  return adaptedOffer;
 };

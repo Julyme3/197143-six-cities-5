@@ -1,28 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore} from "redux";
+import {createStore, applyMiddleware} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
-import {reducer} from "./store/reducer";
+import thunk from "redux-thunk";
+import {createApi} from "./services/api";
+import {fetchOffersList} from "./store/api-actions";
+import rootReducer from "./store/reducers/root-reducer";
 import App from "./components/app/app";
 import offers from "./mocks/offers";
 import reviews from "./mocks/reviews";
 
-const State = {
-  placesCount: 312
-};
+const api = createApi();
 
 const store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
+    )
 );
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App
-        placesCount={State.placesCount}
-        offers={offers}
-        reviews={reviews}
-      />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+Promise.all([store.dispatch(fetchOffersList())])
+  .then(() => {
+    ReactDOM.render(
+        <Provider store={store}>
+          <App
+            offers={offers}
+            reviews={reviews}
+          />
+        </Provider>,
+        document.querySelector(`#root`)
+    );
+  });
+
