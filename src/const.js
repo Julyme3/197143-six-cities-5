@@ -33,3 +33,21 @@ export const Cities = [
   `Hamburg`,
   `Dusseldorf`,
 ];
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const AppRoute = {
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`,
+  ROOT: `/`,
+};
+
+export const APIRoute = {
+  HOTELS: `/hotels`,
+  LOGIN: `/login`,
+  ROOT: `/`,
+};
