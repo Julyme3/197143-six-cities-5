@@ -19,10 +19,7 @@ const api = createApi(() => store.dispatch(setAuthorizationStatus(AuthorizationS
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(
-          thunk.withExtraArgument(api),
-          redirect,
-        )
+        applyMiddleware(thunk.withExtraArgument(api), redirect)
     )
 );
 

@@ -59,8 +59,8 @@ class AuthScreen extends PureComponent {
         </div>
       </MainLayout>
     );
-  };
-};
+  }
+}
 
 AuthScreen.propTypes = {
   onSubmit: PropsTypes.func.isRequired,
