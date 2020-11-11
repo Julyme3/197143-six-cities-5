@@ -19,10 +19,12 @@ class Map extends PureComponent {
     this.init();
   }
 
-  componentDidUpdate({offers: prevOffers}) {
+  componentDidUpdate({offers: prevOffers, cityCoords: prevCityCoords}) {
     this.removedMarkers(prevOffers);
     this.addMarkers(this.props.offers, this.props.activeCardId);
-    this._map.setView(this.props.cityCoords, this.props.zoom);
+    if (this.props.cityCoords.join(`,`) !== prevCityCoords.join(`,`)) {
+      this._map.setView(this.props.cityCoords, this.props.zoom);
+    }
   }
 
   init() {
@@ -72,7 +74,7 @@ class Map extends PureComponent {
   render() {
     const {width, height} = this.props;
     return (
-      <div id="map" style={{width, height}}></div>
+      <div id="map" style={{width, height}} />
     );
   }
 }
