@@ -1,4 +1,13 @@
-import {setOffersAction, setActiveOfferAction, setAuthorizationStatus, redirectToRoute, setNearbyOffersAction} from "./actions";
+import {
+  setOffersAction,
+  setActiveOfferAction,
+  setAuthorizationStatus,
+  redirectToRoute,
+  setNearbyOffersAction,
+  setNotificationAction,
+  setStopLoadingAction,
+  setPostCommentStatusAction,
+} from "./actions";
 import {offerAdaptToClient} from "../offers";
 import {AuthorizationStatus, APIRoute} from "../const";
 
@@ -52,9 +61,23 @@ export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState
     comment,
   })
     .then(() => {
+      dispatch(setPostCommentStatusAction());
       // сделать фетч комментариев
     })
     .catch((error) => {
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
       throw error;
+    })
+    .finally(() => {
+      dispatch(setStopLoadingAction());
+      setTimeout(() => {
+        dispatch(setNotificationAction({
+          showError: false,
+          content: ``,
+        }));
+      }, 5000);
     })
 );

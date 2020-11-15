@@ -1,5 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {setStartLoadingAction} from "../../store/actions";
+import {connect} from "react-redux";
+import {getIsLoading, getPostCommentStatus} from "../../store/reducers/process/selectors";
 
 const MIN_LENGTH_COMMENT = 50;
 const MAX_LENGTH_COMMENT = 300;
@@ -17,6 +20,16 @@ const withForm = (Component) => {
 
       this.handleFieldChange = this.handleFieldChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.commentStatus && this.props.commentStatus !== prevProps.commentStatus) {
+        this.setState({
+          rating: ``,
+          comment: ``,
+          isDisabled: true,
+        });
+      }
     }
 
     checkForm() {
@@ -50,27 +63,26 @@ const withForm = (Component) => {
     }
 
     handleSubmit(evt) {
-      const {commentPostAction, id} = this.props;
+      const {commentPostAction, id, setStartLoading} = this.props;
       evt.preventDefault();
 
       const data = {
         rating: this.state.rating,
         comment: this.state.comment,
       };
+      setStartLoading();
       commentPostAction(id, data);
-      this.setState({
-        rating: ``,
-        comment: ``,
-        isDisabled: true,
-      });
     }
 
     render() {
+      const {isLoading} = this.props;
+      const isDisabled = isLoading || this.state.isDisabled;
+
       return (
         <Component
           onFieldChange={this.handleFieldChange}
           onSubmit={this.handleSubmit}
-          isDisabled={this.state.isDisabled}
+          isDisabled={isDisabled}
           ratingValue={this.state.rating}
           commentValue={this.state.comment}
         />
@@ -81,9 +93,19 @@ const withForm = (Component) => {
   WithForm.propTypes = {
     commentPostAction: PropTypes.func,
     id: PropTypes.string,
+    setStartLoading: PropTypes.func,
+    isLoading: PropTypes.bool,
+    commentStatus: PropTypes.bool,
   };
 
-  return WithForm;
+  const mapStateToProps = (state) => ({
+    isLoading: getIsLoading(state),
+    commentStatus: getPostCommentStatus(state),
+  });
+
+  return connect(mapStateToProps, {
+    setStartLoading: setStartLoadingAction,
+  })(WithForm);
 };
 
 export default withForm;

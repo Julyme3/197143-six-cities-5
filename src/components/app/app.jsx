@@ -46,7 +46,6 @@ const App = (props) => {
           return (
             <RoomScreen
               match={match}
-              offer={offers[0]}
               reviews={reviews}
             />
           );
