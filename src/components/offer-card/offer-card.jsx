@@ -3,10 +3,13 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {OfferType} from "../../types";
 import {Type} from "../../const";
+import Rating from "../rating/rating";
 
 const OffserCard = (props) => {
   const {offer, onChangeActiveOffer = undefined, className, classNameInner} = props;
   const isMainType = offer.typeComponent === Type.MAIN;
+  const isActive = offer.isBookmark;
+
   return (
     <article
       className={`${className} place-card`}
@@ -29,7 +32,7 @@ const OffserCard = (props) => {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className={`place-card__bookmark-button button ${isActive ? `place-card__bookmark-button--active` : ``}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -37,10 +40,7 @@ const OffserCard = (props) => {
           </button>
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <Rating rating={offer.raiting} className="place-card__stars" />
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{offer.name}</Link>

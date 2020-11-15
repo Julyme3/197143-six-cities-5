@@ -1,4 +1,4 @@
-import {setOffersAction, setAuthorizationStatus, redirectToRoute} from "./actions";
+import {setOffersAction, setActiveOfferAction, setAuthorizationStatus, redirectToRoute, setNearbyOffersAction} from "./actions";
 import {offerAdaptToClient} from "../offers";
 import {AuthorizationStatus, APIRoute} from "../const";
 
@@ -21,7 +21,40 @@ export const login = (data) => (dispatch, _getState, api) => (
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
       dispatch(redirectToRoute(APIRoute.ROOT));
     })
-    .catch((err)=>{
-      throw err;
+    .catch((error)=>{
+      throw error;
+    })
+);
+
+export const fetchFullOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}`)
+    .then(({data}) => {
+      dispatch(setActiveOfferAction(offerAdaptToClient(data)));
+    })
+    .catch((error) => {
+      throw error;
+    })
+);
+
+export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => {
+      dispatch(setNearbyOffersAction(data.map((offer) => offerAdaptToClient(offer, `near`))));
+    })
+    .catch((error) => {
+      throw error;
+    })
+);
+
+export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, {
+    rating,
+    comment,
+  })
+    .then(() => {
+      // сделать фетч комментариев
+    })
+    .catch((error) => {
+      throw error;
     })
 );
