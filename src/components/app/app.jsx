@@ -42,12 +42,14 @@ const App = (props) => {
             />
           );
         }} />
-        <Route path={AppRoute.OFFER} exact>
-          <RoomScreen
-            offer={offers[0]}
-            reviews={reviews}
-          />
-        </Route>
+        <Route path={AppRoute.OFFER} exact render={({match}) => {
+          return (
+            <RoomScreen
+              match={match}
+              reviews={reviews}
+            />
+          );
+        }} />
       </Switch>
     </BrowserRouter>
   );

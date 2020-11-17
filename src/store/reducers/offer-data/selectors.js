@@ -12,3 +12,7 @@ export const getOffersSelector = createSelector(
       return getOffersByCity(offers, activeCity);
     }
 );
+
+export const getActiveOfferSelector = (state) => state[NameSpace.DATA].activeOffer;
+
+export const getNearbyOffersSelector = (state) => state[NameSpace.DATA].nearbyOffers;

@@ -51,3 +51,5 @@ export const APIRoute = {
   LOGIN: `/login`,
   ROOT: `/`,
 };
+
+export const MAX_RATING = 5;

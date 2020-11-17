@@ -1,6 +1,7 @@
 import React, {memo} from "react";
 import PropTypes from "prop-types";
 import Header from "../../components/header/header";
+import ModalNotification from "../../components/modal-notfication/modal-notification";
 
 const MainLayout = (props) => {
   const {children, className = ``, classNameWrap = ``} = props;
@@ -11,6 +12,7 @@ const MainLayout = (props) => {
       <main className={`page__main ${classNameWrap}`}>
         {children}
       </main>
+      <ModalNotification />
     </div>
   );
 };

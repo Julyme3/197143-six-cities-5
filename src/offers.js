@@ -1,5 +1,5 @@
 import {compare} from "./utils";
-import {SortType} from "./const";
+import {SortType, MAX_RATING} from "./const";
 
 export const getOffersByCity = (offers, selectedCity) => offers.filter((offer) => offer.city.name === selectedCity);
 export const getNearestOffers = (offers, selectedOffer) => {
@@ -44,7 +44,7 @@ export const sortOffers = (sort, offers) => {
   return offers;
 };
 
-export const offerAdaptToClient = (offer) => {
+export const offerAdaptToClient = (offer, type) => {
   const adaptedOffer = Object.assign(
       {},
       offer,
@@ -72,7 +72,7 @@ export const offerAdaptToClient = (offer) => {
           name: offer.host.name,
           isSuper: offer.host.is_pro,
         },
-        typeComponent: `main`
+        typeComponent: type === `near` ? `near` : `main`,
       }
   );
 
@@ -89,3 +89,5 @@ export const offerAdaptToClient = (offer) => {
 
   return adaptedOffer;
 };
+
+export const calcRating = (value) => (value * 100) / MAX_RATING;
