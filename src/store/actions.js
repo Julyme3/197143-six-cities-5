@@ -9,6 +9,7 @@ export const ActionType = {
   SET_START_LOADING_ACTION: `SET_START_LOADING_ACTION`,
   SET_STOP_LOADING_ACTION: `SET_STOP_LOADING_ACTION`,
   SET_POST_COMMENT_STATUS_ACTION: `SET_POST_COMMENT_STATUS_ACTION`,
+  SET_COMMENTS_ACTION: `SET_COMMENTS_ACTION`,
 };
 
 export const setOffersAction = (payload) => ({
@@ -56,4 +57,9 @@ export const setStopLoadingAction = () => ({
 
 export const setPostCommentStatusAction = () => ({
   type: ActionType.SET_POST_COMMENT_STATUS_ACTION,
+});
+
+export const setCommentsAction = (payload) => ({
+  type: ActionType.SET_COMMENTS_ACTION,
+  payload,
 });

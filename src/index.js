@@ -9,8 +9,6 @@ import {fetchOffersList, checkAuth} from "./store/api-actions";
 import rootReducer from "./store/reducers/root-reducer";
 import {AuthorizationStatus} from "./const";
 import App from "./components/app/app";
-import offers from "./mocks/offers";
-import reviews from "./mocks/reviews";
 import {setAuthorizationStatus} from "./store/actions";
 import {redirect} from "./store/middlewares/redirect";
 
@@ -27,10 +25,7 @@ Promise.all([store.dispatch(fetchOffersList()), store.dispatch(checkAuth())])
   .then(() => {
     ReactDOM.render(
         <Provider store={store}>
-          <App
-            offers={offers}
-            reviews={reviews}
-          />
+          <App/>
         </Provider>,
         document.querySelector(`#root`)
     );

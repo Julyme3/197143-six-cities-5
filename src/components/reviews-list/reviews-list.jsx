@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {ReviewsType} from "../../types";
 import Review from "../Review/review";
+import {sortByDateDown} from "../../reviews";
 
+const MAX_COUNT = 10;
 const ReviewsList = ({reviews}) => {
+  const sortedReviews = useMemo(() => reviews.sort(sortByDateDown).slice(0, MAX_COUNT), [reviews]);
   return (
     <ul className="reviews__list">
-      {reviews.length && reviews.map((review) => {
+      {sortedReviews.map((review) => {
         return (
           <Review
             review={review}

@@ -7,15 +7,18 @@ import {
   setNotificationAction,
   setStopLoadingAction,
   setPostCommentStatusAction,
+  setCommentsAction,
 } from "./actions";
 import {offerAdaptToClient} from "../offers";
 import {AuthorizationStatus, APIRoute} from "../const";
+import {commentAdaptToClient} from "../reviews";
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
       dispatch(setOffersAction(data.map(offerAdaptToClient)));
     })
+    .catch(()=>{})
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -62,7 +65,7 @@ export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState
   })
     .then(() => {
       dispatch(setPostCommentStatusAction());
-      // сделать фетч комментариев
+      dispatch(fetchCommentsAction(id));
     })
     .catch((error) => {
       dispatch(setNotificationAction({
@@ -79,5 +82,15 @@ export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState
           content: ``,
         }));
       }, 5000);
+    })
+);
+
+export const fetchCommentsAction = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data}) => {
+      dispatch(setCommentsAction(data.map(commentAdaptToClient)));
+    })
+    .catch((error) => {
+      throw error;
     })
 );

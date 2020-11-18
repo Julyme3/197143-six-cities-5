@@ -55,7 +55,7 @@ class Map extends PureComponent {
 
     const icon = new LeftIcon({iconUrl: MARKER_URL});
     const activeIcon = new LeftIcon({iconUrl: MARKER_ACTIVE_URL});
-    const offerCords = [...offers.map((offer) => offer.coords)];
+    const offerCords = offers.map((offer) => offer.coords);
     const isActivePin = activeCardId ? activeCardId : null;
 
     offerCords.forEach((offer, i) => {

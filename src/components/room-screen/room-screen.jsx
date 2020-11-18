@@ -3,7 +3,12 @@ import {connect} from "react-redux";
 import {OfferType, ReviewsType, OffersType} from "../../types";
 import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../const";
-import {fetchFullOffer, fetchNearbyOffers, postCommentAction} from "../../store/api-actions";
+import {
+  fetchCommentsAction,
+  fetchFullOffer,
+  fetchNearbyOffers,
+  postCommentAction,
+} from "../../store/api-actions";
 import withForm from "../../hocs/with-form/with-form";
 import ReviewForm from "../review-form/review-form";
 import ReviewsList from "../reviews-list/reviews-list";
@@ -11,8 +16,8 @@ import Map from "../map/map";
 import OfferListNear from "../offer-list-near/offer-list-near";
 import MainLayout from "../../layouts/main-layout/main-layout";
 import {
-  getActiveOfferSelector,
-  getNearbyOffersSelector,
+  getActiveOfferSelector, getCommentsSelector,
+  getNearbyOffersSliceSelector,
 } from "../../store/reducers/offer-data/selectors";
 import Rating from "../rating/rating";
 import {getAuthorizationStatusSelector} from "../../store/reducers/user/selectors";
@@ -27,8 +32,9 @@ class RoomScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const {fetchFullOfferAction, fetchNearbyOffersAction} = this.props;
+    const {fetchFullOfferAction, fetchNearbyOffersAction, fetchComments} = this.props;
     fetchFullOfferAction(this.id);
+    fetchComments(this.id);
     fetchNearbyOffersAction(this.id);
   }
 
@@ -132,7 +138,9 @@ class RoomScreen extends PureComponent {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviews.length}</span></h2>
+                  <h2 className="reviews__title">Reviews ·
+                    <span className="reviews__amount">{reviews.length}</span>
+                  </h2>
                   <ReviewsList reviews={reviews}/>
                   {authorizationStatus === AuthorizationStatus.AUTH &&
                     <ReviewFormWrapped id={this.id} commentPostAction={postComment} />
@@ -147,6 +155,7 @@ class RoomScreen extends PureComponent {
                 height={`579px`}
                 cityCoords={offer.city.location}
                 zoom={offer.city.zoom}
+                activeCardId={+this.id}
               />
             </section>
           </section>
@@ -170,6 +179,7 @@ RoomScreen.propTypes = {
   nearbyOffers: OffersType,
   fetchFullOfferAction: PropTypes.func.isRequired,
   fetchNearbyOffersAction: PropTypes.func.isRequired,
+  fetchComments: PropTypes.func.isRequired,
   postComment: PropTypes.func,
   match: PropTypes.object.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
@@ -177,8 +187,9 @@ RoomScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeOffer: getActiveOfferSelector(state),
-  nearbyOffers: getNearbyOffersSelector(state),
+  nearbyOffers: getNearbyOffersSliceSelector(state),
   authorizationStatus: getAuthorizationStatusSelector(state),
+  reviews: getCommentsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -190,7 +201,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   postComment(id, data) {
     dispatch(postCommentAction(id, data));
-  }
+  },
+  fetchComments(id) {
+    dispatch(fetchCommentsAction(id));
+  },
 });
 
 export {RoomScreen};

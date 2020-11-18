@@ -1,6 +1,5 @@
 import React from "react";
 import {Router as BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
-import {OffersType, ReviewsType} from "../../types";
 import PropTypes from 'prop-types';
 import {AppRoute, AuthorizationStatus} from "../../const";
 import browserHistory from "../../browser-history";
@@ -16,7 +15,7 @@ import {connect} from "react-redux";
 const MainScreenWrapped = withActiveItem(MainScreen);
 const App = (props) => {
 
-  const {offers, reviews, authorizationStatus} = props;
+  const {authorizationStatus} = props;
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -37,16 +36,13 @@ const App = (props) => {
         </Route>
         <PrivateRoute exact path={AppRoute.FAVORITES} render={() => {
           return (
-            <FavoritesScreen
-              offers={offers}
-            />
+            <FavoritesScreen />
           );
         }} />
         <Route path={AppRoute.OFFER} exact render={({match}) => {
           return (
             <RoomScreen
               match={match}
-              reviews={reviews}
             />
           );
         }} />
@@ -60,8 +56,6 @@ const mapStateToProps = (state) => ({
 });
 
 App.propTypes = {
-  offers: OffersType,
-  reviews: ReviewsType,
   authorizationStatus: PropTypes.string.isRequired,
 };
 

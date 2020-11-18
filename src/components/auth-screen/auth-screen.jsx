@@ -12,14 +12,22 @@ class AuthScreen extends PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  checkForm(data) {
+    return data.email !== `` && data.password !== ``;
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const {onSubmit} = this.props;
     const formData = new FormData(this._formRef.current);
-    onSubmit({
+
+    const data = {
       email: formData.get(`email`),
       password: formData.get(`password`),
-    });
+    };
+    if (this.checkForm(data)) {
+      onSubmit(data);
+    }
   }
 
   render() {

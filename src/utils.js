@@ -13,3 +13,5 @@ export const compare = (a, b) => {
 
   return 0;
 };
+
+export const getFormattedDate = ({date, options}) => new Intl.DateTimeFormat(`en-US`, options).format(new Date(date));

@@ -1,5 +1,6 @@
 import React from "react";
 import {ReviewType} from "../../types";
+import Rating from "../rating/rating";
 
 const Review = ({review}) => {
   return (
@@ -16,15 +17,12 @@ const Review = ({review}) => {
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{width: `80%`}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <Rating rating={review.raiting} className="reviews__stars" />
         </div>
         <p className="reviews__text">
           {review.text}
         </p>
-        <time className="reviews__time" dateTime={review.date.toString()}>{review.date.toString()}</time>
+        <time className="reviews__time" dateTime={review.dateFormated}>{review.dateFormated}</time>
       </div>
     </li>
   );
