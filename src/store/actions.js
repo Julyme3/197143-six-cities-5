@@ -10,6 +10,8 @@ export const ActionType = {
   SET_STOP_LOADING_ACTION: `SET_STOP_LOADING_ACTION`,
   SET_POST_COMMENT_STATUS_ACTION: `SET_POST_COMMENT_STATUS_ACTION`,
   SET_COMMENTS_ACTION: `SET_COMMENTS_ACTION`,
+  SET_LIST_FAVORITE_ACTION: `SET_LIST_FAVORITE_ACTION`,
+  SET_IS_FAVORITE_ACTION: `SET_IS_FAVORITE_ACTION`,
 };
 
 export const setOffersAction = (payload) => ({
@@ -61,5 +63,15 @@ export const setPostCommentStatusAction = () => ({
 
 export const setCommentsAction = (payload) => ({
   type: ActionType.SET_COMMENTS_ACTION,
+  payload,
+});
+
+export const setFavoritesListAction = (payload) => ({
+  type: ActionType.SET_LIST_FAVORITE_ACTION,
+  payload,
+});
+
+export const setIsFavoriteAction = (payload) => ({
+  type: ActionType.SET_IS_FAVORITE_ACTION,
   payload,
 });

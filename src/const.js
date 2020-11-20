@@ -50,6 +50,8 @@ export const APIRoute = {
   HOTELS: `/hotels`,
   LOGIN: `/login`,
   ROOT: `/`,
+  COMMENTS: `/comments`,
+  FAVORITE: `/favorite`,
 };
 
 export const MAX_RATING = 5;

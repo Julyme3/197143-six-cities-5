@@ -5,7 +5,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import {createApi} from "./services/api";
-import {fetchOffersList, checkAuth} from "./store/api-actions";
+import {fetchOffersListAction, checkAuth} from "./store/api-actions";
 import rootReducer from "./store/reducers/root-reducer";
 import {AuthorizationStatus} from "./const";
 import App from "./components/app/app";
@@ -21,7 +21,7 @@ const store = createStore(
     )
 );
 
-Promise.all([store.dispatch(fetchOffersList()), store.dispatch(checkAuth())])
+Promise.all([store.dispatch(fetchOffersListAction()), store.dispatch(checkAuth())])
   .then(() => {
     ReactDOM.render(
         <Provider store={store}>

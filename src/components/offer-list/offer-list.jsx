@@ -8,18 +8,20 @@ import {Type} from '../../const';
 
 
 const OfferList = (props) => {
-  const {offers, className} = props;
+  const {offers, className, onChangeActiveOffer, onChangeFavorite} = props;
 
   const getComponentByType = (type, offer) => {
     switch (type) {
       case Type.MAIN:
         return <OfferCardMain
           offer={offer}
-          onChangeActiveOffer={props.onChangeActiveOffer}
+          onChangeActiveOffer={onChangeActiveOffer}
+          onChangeFavorite={onChangeFavorite}
         />;
       case Type.NEAR:
         return <OfferCardNear
           offer={offer}
+          onChangeFavorite={onChangeFavorite}
         />;
     }
 
@@ -47,6 +49,7 @@ OfferList.propTypes = {
   offers: OffersType,
   className: PropTypes.string,
   onChangeActiveOffer: PropTypes.func,
+  onChangeFavorite: PropTypes.func.isRequired,
 };
 
 export default OfferList;

@@ -8,12 +8,13 @@ import {
   setStopLoadingAction,
   setPostCommentStatusAction,
   setCommentsAction,
+  setFavoritesListAction,
 } from "./actions";
 import {offerAdaptToClient} from "../offers";
 import {AuthorizationStatus, APIRoute} from "../const";
 import {commentAdaptToClient} from "../reviews";
 
-export const fetchOffersList = () => (dispatch, _getState, api) => (
+export const fetchOffersListAction = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
       dispatch(setOffersAction(data.map(offerAdaptToClient)));
@@ -39,7 +40,7 @@ export const login = (data) => (dispatch, _getState, api) => (
 );
 
 export const fetchFullOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`/hotels/${id}`)
+  api.get(`${APIRoute.HOTELS}/${id}`)
     .then(({data}) => {
       dispatch(setActiveOfferAction(offerAdaptToClient(data)));
     })
@@ -48,18 +49,16 @@ export const fetchFullOffer = (id) => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
-  api.get(`/hotels/${id}/nearby`)
+export const fetchNearbyOffersAction = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}/nearby`)
     .then(({data}) => {
       dispatch(setNearbyOffersAction(data.map((offer) => offerAdaptToClient(offer, `near`))));
     })
-    .catch((error) => {
-      throw error;
-    })
+    .catch(() =>{})
 );
 
 export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState, api) => (
-  api.post(`/comments/${id}`, {
+  api.post(`${APIRoute.COMMENTS}/${id}`, {
     rating,
     comment,
   })
@@ -86,11 +85,27 @@ export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState
 );
 
 export const fetchCommentsAction = (id) => (dispatch, _getState, api) => (
-  api.get(`/comments/${id}`)
+  api.get(`${APIRoute.COMMENTS}/${id}`)
     .then(({data}) => {
       dispatch(setCommentsAction(data.map(commentAdaptToClient)));
     })
     .catch((error) => {
       throw error;
     })
+);
+
+export const fetchFavoritesAction = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITE)
+    .then(({data}) => {
+      dispatch(setFavoritesListAction(data.map(offerAdaptToClient())));
+    })
+    .catch(()=>{})
+);
+
+export const postFavoriteAction = (id, status, action) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
+    .then(() => {
+      dispatch(action(id));
+    })
+    .catch(()=>{})
 );

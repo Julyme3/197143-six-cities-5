@@ -6,9 +6,10 @@ import {Type} from "../../const";
 import Rating from "../rating/rating";
 
 const OffserCard = (props) => {
-  const {offer, onChangeActiveOffer = undefined, className, classNameInner} = props;
+  const {offer, onChangeActiveOffer = undefined, className, classNameInner, onChangeFavorite} = props;
   const isMainType = offer.typeComponent === Type.MAIN;
-  const isActive = offer.isBookmark;
+  const isFavorite = offer.isBookmark;
+  const isFavoriteToNumber = Number(!isFavorite);
 
   return (
     <article
@@ -32,7 +33,11 @@ const OffserCard = (props) => {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isActive ? `place-card__bookmark-button--active` : ``}`} type="button">
+          <button
+            className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
+            type="button"
+            onClick={() => onChangeFavorite(offer.id, isFavoriteToNumber)}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -56,6 +61,7 @@ OffserCard.propTypes = {
   onChangeActiveOffer: PropTypes.func,
   className: PropTypes.string,
   classNameInner: PropTypes.string,
+  onChangeFavorite: PropTypes.func,
 };
 
 export default OffserCard;

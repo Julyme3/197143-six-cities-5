@@ -6,7 +6,7 @@ import {AuthorizationStatus} from "../../const";
 import {
   fetchCommentsAction,
   fetchFullOffer,
-  fetchNearbyOffers,
+  fetchNearbyOffersAction,
   postCommentAction,
 } from "../../store/api-actions";
 import withForm from "../../hocs/with-form/with-form";
@@ -32,10 +32,10 @@ class RoomScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const {fetchFullOfferAction, fetchNearbyOffersAction, fetchComments} = this.props;
+    const {fetchFullOfferAction, fetchNearbyOffers, fetchComments} = this.props;
     fetchFullOfferAction(this.id);
     fetchComments(this.id);
-    fetchNearbyOffersAction(this.id);
+    fetchNearbyOffers(this.id);
   }
 
   render() {
@@ -178,7 +178,7 @@ RoomScreen.propTypes = {
   reviews: ReviewsType,
   nearbyOffers: OffersType,
   fetchFullOfferAction: PropTypes.func.isRequired,
-  fetchNearbyOffersAction: PropTypes.func.isRequired,
+  fetchNearbyOffers: PropTypes.func.isRequired,
   fetchComments: PropTypes.func.isRequired,
   postComment: PropTypes.func,
   match: PropTypes.object.isRequired,
@@ -196,8 +196,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchFullOfferAction(id) {
     dispatch(fetchFullOffer(id));
   },
-  fetchNearbyOffersAction(id) {
-    dispatch(fetchNearbyOffers(id));
+  fetchNearbyOffers(id) {
+    dispatch(fetchNearbyOffersAction(id));
   },
   postComment(id, data) {
     dispatch(postCommentAction(id, data));
