@@ -55,3 +55,7 @@ export const APIRoute = {
 };
 
 export const MAX_RATING = 5;
+
+export const HttpCode = {
+  UNAUTHORIZED: 401
+};

@@ -2,20 +2,24 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {OfferType} from "../../types";
-import {Type} from "../../const";
 import Rating from "../rating/rating";
 
 const OffserCard = (props) => {
-  const {offer, onChangeActiveOffer = undefined, className, classNameInner, onChangeFavorite, width = `260px`, height = `200px`} = props;
-  const isMainType = offer.typeComponent === Type.MAIN;
+  const {offer,
+    onChangeActiveOffer = undefined,
+    className,
+    classNameInner,
+    onChangeFavorite,
+    width = `260px`,
+    height = `200px`} = props;
   const isFavorite = offer.isBookmark;
   const isFavoriteToNumber = Number(!isFavorite);
 
   return (
     <article
       className={`${className} place-card`}
-      onMouseEnter = {isMainType ? () => onChangeActiveOffer(offer.id) : undefined}
-      onMouseLeave = {isMainType ? () => onChangeActiveOffer(null) : undefined}
+      onMouseEnter = {() => onChangeActiveOffer(offer.id)}
+      onMouseLeave = {() => onChangeActiveOffer(null)}
     >
       {offer.isPremium &&
         <div className="place-card__mark">
@@ -34,7 +38,9 @@ const OffserCard = (props) => {
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${isFavorite ? `place-card__bookmark-button--active` : ``}`}
+            className={`place-card__bookmark-button button
+              ${isFavorite && `place-card__bookmark-button--active`}`
+            }
             type="button"
             onClick={() => onChangeFavorite(offer.id, isFavoriteToNumber)}
           >

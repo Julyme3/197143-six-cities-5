@@ -11,7 +11,7 @@ import {
   setFavoritesListAction,
 } from "./actions";
 import {offerAdaptToClient} from "../offers";
-import {AuthorizationStatus, APIRoute} from "../const";
+import {AuthorizationStatus, APIRoute, HttpCode} from "../const";
 import {commentAdaptToClient} from "../reviews";
 import {formattedOfferAdaptToClient} from "../favorites";
 
@@ -20,7 +20,12 @@ export const fetchOffersListAction = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(setOffersAction(data.map(offerAdaptToClient)));
     })
-    .catch(()=>{})
+    .catch((error) => {
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
+    })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -35,8 +40,11 @@ export const login = (data) => (dispatch, _getState, api) => (
       dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
       dispatch(redirectToRoute(APIRoute.ROOT));
     })
-    .catch((error)=>{
-      throw error;
+    .catch((error) => {
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
     })
 );
 
@@ -46,7 +54,10 @@ export const fetchFullOffer = (id) => (dispatch, _getState, api) => (
       dispatch(setActiveOfferAction(offerAdaptToClient(data)));
     })
     .catch((error) => {
-      throw error;
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
     })
 );
 
@@ -55,11 +66,16 @@ export const fetchNearbyOffersAction = (id) => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(setNearbyOffersAction(data.map((offer) => offerAdaptToClient(offer, `near`))));
     })
-    .catch(() =>{})
+    .catch((error) => {
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
+    })
 );
 
 export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.COMMENTS}/${id}`, {
+  api.post(`${APIRoute.COMMENTS}/`, {
     rating,
     comment,
   })
@@ -72,16 +88,9 @@ export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState
         showError: true,
         content: error.message,
       }));
-      throw error;
     })
     .finally(() => {
       dispatch(setStopLoadingAction());
-      setTimeout(() => {
-        dispatch(setNotificationAction({
-          showError: false,
-          content: ``,
-        }));
-      }, 5000);
     })
 );
 
@@ -91,7 +100,10 @@ export const fetchCommentsAction = (id) => (dispatch, _getState, api) => (
       dispatch(setCommentsAction(data.map(commentAdaptToClient)));
     })
     .catch((error) => {
-      throw error;
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
     })
 );
 
@@ -100,14 +112,25 @@ export const fetchFavoritesAction = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(setFavoritesListAction(formattedOfferAdaptToClient(data.map((offer) => offerAdaptToClient(offer, `near`)))));
     })
-    .catch(()=>{})
+    .catch((error) => {
+      dispatch(setNotificationAction({
+        showError: true,
+        content: error.message,
+      }));
+    })
+    .finally(() => {
+      dispatch(setStopLoadingAction());
+    })
 );
 
-export const postFavoriteAction = (id, status, action) => (dispatch, _getState, api) => (
+export const postFavoriteAction = (id, status, action, type) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
     .then(({data}) => {
-     // dispatch(action(id));
-      dispatch(setActiveOfferAction(offerAdaptToClient(data)));
+      dispatch(action(offerAdaptToClient(data, type)));
     })
-    .catch(()=>{})
+    .catch(({response}) => {
+      if (response && response.status === HttpCode.UNAUTHORIZED) {
+        dispatch(redirectToRoute(APIRoute.LOGIN));
+      }
+    })
 );

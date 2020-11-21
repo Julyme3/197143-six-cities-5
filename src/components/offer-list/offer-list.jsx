@@ -21,6 +21,7 @@ const OfferList = (props) => {
       case Type.NEAR:
         return <OfferCardNear
           offer={offer}
+          onChangeActiveOffer={onChangeActiveOffer}
           onChangeFavorite={onChangeFavorite}
         />;
     }

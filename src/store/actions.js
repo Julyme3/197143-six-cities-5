@@ -12,6 +12,11 @@ export const ActionType = {
   SET_COMMENTS_ACTION: `SET_COMMENTS_ACTION`,
   SET_LIST_FAVORITE_ACTION: `SET_LIST_FAVORITE_ACTION`,
   SET_IS_FAVORITE_ACTION: `SET_IS_FAVORITE_ACTION`,
+  UPDATE_FAVORITE_ACTION: `UPDATE_FAVORITE_ACTION`,
+  UPDATE_FAVORITE_NEARBY_ACTION: `UPDATE_FAVORITE_NEARBY_ACTION`,
+  UPDATE_FAVORITE_IN_LIST_ACTION: `UPDATE_FAVORITE_IN_LIST_ACTION`,
+  START_LOADING_ACTION: `START_LOADING_ACTION`,
+  STOP_LOADING_ACTION: `STOP_LOADING_ACTION`,
 };
 
 export const setOffersAction = (payload) => ({
@@ -71,7 +76,19 @@ export const setFavoritesListAction = (payload) => ({
   payload,
 });
 
-export const setIsFavoriteAction = (payload) => ({
-  type: ActionType.SET_IS_FAVORITE_ACTION,
+export const updateFavoriteAction = (payload) => ({
+  type: ActionType.UPDATE_FAVORITE_ACTION,
+  payload,
+});
+
+export const updateFavoriteNearbyAction = (payload) => {
+  return {
+    type: ActionType.UPDATE_FAVORITE_NEARBY_ACTION,
+    payload,
+  };
+};
+
+export const updateFavoriteInListAction = (payload) => ({
+  type: ActionType.UPDATE_FAVORITE_IN_LIST_ACTION,
   payload,
 });

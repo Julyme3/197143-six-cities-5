@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 
@@ -18,4 +18,5 @@ OfferCardNear.propTypes = {
   classNameInner: PropTypes.string,
 };
 
-export default OfferCardNear;
+export {OfferCardNear};
+export default memo(OfferCardNear);

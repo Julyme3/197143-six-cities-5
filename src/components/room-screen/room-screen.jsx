@@ -17,16 +17,18 @@ import Map from "../map/map";
 import OfferListNear from "../offer-list-near/offer-list-near";
 import MainLayout from "../../layouts/main-layout/main-layout";
 import {
-  getActiveOfferSelector, getCommentsSelector,
+  getActiveOfferSelector,
+  getCommentsSelector,
   getNearbyOffersSliceSelector,
 } from "../../store/reducers/offer-data/selectors";
 import Rating from "../rating/rating";
 import {getAuthorizationStatusSelector} from "../../store/reducers/user/selectors";
 import {setActiveOfferAction} from "../../store/actions";
-import {offerAdaptToClient} from "../../offers";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
 
 const MAX_COUNT_IMG = 6;
 const ReviewFormWrapped = withForm(ReviewForm);
+const OfferListNearWrapped = withActiveItem(OfferListNear);
 class RoomScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -91,7 +93,9 @@ class RoomScreen extends PureComponent {
                     {name}
                   </h1>
                   <button
-                    className={`property__bookmark-button button ${isBookmark ? `property__bookmark-button--active` : ``}`}
+                    className={`property__bookmark-button button
+                      ${isBookmark && `property__bookmark-button--active` || ``}`
+                    }
                     type="button"
                     onClick={this.handleChangeFavorite}
                   >
@@ -177,7 +181,7 @@ class RoomScreen extends PureComponent {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferListNear
+            <OfferListNearWrapped
               offers={nearbyOffers}
             />
           </section>
@@ -198,6 +202,7 @@ RoomScreen.propTypes = {
   match: PropTypes.object.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   postFavorite: PropTypes.func.isRequired,
+  setActiveOffer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -224,7 +229,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(postFavoriteAction(id, status, action));
   },
   setActiveOffer(data) {
-    dispatch(setActiveOfferAction(offerAdaptToClient(data)));
+    dispatch(setActiveOfferAction(data));
   },
 });
 

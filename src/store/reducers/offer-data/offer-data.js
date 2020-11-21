@@ -27,6 +27,18 @@ const offerData = (state = initialState, action) => {
       return extend(state, {
         comments: action.payload,
       });
+    case ActionType.UPDATE_FAVORITE_ACTION:
+      return extend(state, {
+        offers: state.offers.map((offer) =>
+          offer.id === action.payload.id ? action.payload : offer
+        ),
+      });
+    case ActionType.UPDATE_FAVORITE_NEARBY_ACTION:
+      return extend(state, {
+        nearbyOffers: state.nearbyOffers.map((offer) =>
+          offer.id === action.payload.id ? action.payload : offer
+        ),
+      });
   }
 
   return state;

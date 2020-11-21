@@ -42,3 +42,5 @@ export const ReviewsType = PropTypes.arrayOf(ReviewType);
 export const CitiesType = PropTypes.arrayOf(PropTypes.string).isRequired;
 
 export const OffersType = PropTypes.arrayOf(OfferType).isRequired;
+
+export const FavoriteOffers = PropTypes.objectOf(PropTypes.arrayOf(OfferType));
