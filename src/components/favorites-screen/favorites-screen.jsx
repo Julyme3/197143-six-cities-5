@@ -1,86 +1,75 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import {OffersType} from "../../types";
+import PropTypes from "prop-types";
 import Footer from "../footer/footer";
 import MainLayout from "../../layouts/main-layout/main-layout";
+import {connect} from "react-redux";
+import {fetchFavoritesAction} from "../../store/api-actions";
+import {getFavorites} from "../../store/reducers/favorites/selectors";
+import FavoriteList from "../favorite-list/favorite-list";
 
-const FavoritesScreen = (props) => {
-  const bookMarkOffers = props.offers.filter((offer) => offer.isBookmark);
+class FavoritesScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <>
-      <MainLayout
-        classNameWrap="page__main--favorites"
-      >
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <Link className="locations__item-link" to="/">
-                      <span>Amsterdam</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {bookMarkOffers.map((offer) => {
+  componentDidMount() {
+    this.props.fetchFavorite();
+  }
+
+  render() {
+    const {favoriteOffers} = this.props;
+    return (
+      <>
+        <MainLayout
+          classNameWrap="page__main--favorites"
+        >
+          {Object.keys(favoriteOffers).length && <div className="page__favorites-container container">
+            <section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+                {Object.keys(favoriteOffers)
+                  .map((city) => {
                     return (
-                      <article
-                        className="favorites__card place-card"
-                        key={offer.id}
-                      >
-                        <div className="favorites__image-wrapper place-card__image-wrapper">
-                          <a href="#">
-                            <img
-                              className="place-card__image"
-                              src={offer.src[0]}
-                              width="150" height="110"
-                              alt="Place image"
-                            />
-                          </a>
-                        </div>
-                        <div className="favorites__card-info place-card__info">
-                          <div className="place-card__price-wrapper">
-                            <div className="place-card__price">
-                              <b className="place-card__price-value">€{offer.price}</b>
-                              <span className="place-card__price-text">/&nbsp;night</span>
-                            </div>
-                            <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                              <svg className="place-card__bookmark-icon" width="18" height="19">
-                                <use xlinkHref="#icon-bookmark"></use>
-                              </svg>
-                              <span className="visually-hidden">In bookmarks</span>
-                            </button>
+                      <li className="favorites__locations-items" key={city}>
+                        <div className="favorites__locations locations locations--current">
+                          <div className="locations__item">
+                            <Link className="locations__item-link" to="/">
+                              <span>{city}</span>
+                            </Link>
                           </div>
-                          <div className="place-card__rating rating">
-                            <div className="place-card__stars rating__stars">
-                              <span style={{width: `100%`}}></span>
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
-                          <h2 className="place-card__name">
-                            <Link to={`/offer/${offer.id}`}>{offer.name}</Link>
-                          </h2>
-                          <p className="place-card__type">{offer.type}</p>
                         </div>
-                      </article>
+                        <FavoriteList list={favoriteOffers[city]} />
+                      </li>
                     );
                   })}
-                </div>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </MainLayout>
-      <Footer />
-    </>
-  );
-};
+              </ul>
+            </section>
+
+          </div>
+          }
+        </MainLayout>
+        <Footer />
+      </>
+    );
+  }
+}
 
 FavoritesScreen.propTypes = {
-  offers: OffersType
+  fetchFavorite: PropTypes.func.isRequired,
+ // favoriteOffers: PropTypes.array,
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  favoriteOffers: getFavorites(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchFavorite() {
+    dispatch(fetchFavoritesAction());
+  }
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);

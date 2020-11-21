@@ -8,6 +8,7 @@ import {
   fetchFullOffer,
   fetchNearbyOffersAction,
   postCommentAction,
+  postFavoriteAction,
 } from "../../store/api-actions";
 import withForm from "../../hocs/with-form/with-form";
 import ReviewForm from "../review-form/review-form";
@@ -21,6 +22,8 @@ import {
 } from "../../store/reducers/offer-data/selectors";
 import Rating from "../rating/rating";
 import {getAuthorizationStatusSelector} from "../../store/reducers/user/selectors";
+import {setActiveOfferAction} from "../../store/actions";
+import {offerAdaptToClient} from "../../offers";
 
 const MAX_COUNT_IMG = 6;
 const ReviewFormWrapped = withForm(ReviewForm);
@@ -29,6 +32,7 @@ class RoomScreen extends PureComponent {
     super(props);
 
     this.id = this.props.match.params.id;
+    this.handleChangeFavorite = this.handleChangeFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +42,12 @@ class RoomScreen extends PureComponent {
     fetchNearbyOffers(this.id);
   }
 
+  handleChangeFavorite() {
+    const {postFavorite, activeOffer, setActiveOffer} = this.props;
+    const isFavoriteToNumber = Number(!activeOffer.isBookmark);
+    postFavorite(activeOffer.id, isFavoriteToNumber, setActiveOffer);
+  }
+
   render() {
     const {activeOffer: offer, reviews, nearbyOffers, authorizationStatus, postComment} = this.props;
     const isLoading = !offer;
@@ -45,7 +55,7 @@ class RoomScreen extends PureComponent {
     if (!offer) {
       return null;
     }
-    const {details, user, isPremium, name, type, price, raiting} = offer;
+    const {details, user, isPremium, name, type, price, raiting, isBookmark} = offer;
     let {src} = offer;
     src = src.slice(0, MAX_COUNT_IMG);
 
@@ -80,8 +90,12 @@ class RoomScreen extends PureComponent {
                   <h1 className="property__name">
                     {name}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
+                  <button
+                    className={`property__bookmark-button button ${isBookmark ? `property__bookmark-button--active` : ``}`}
+                    type="button"
+                    onClick={this.handleChangeFavorite}
+                  >
+                    <svg className="place-card__bookmark-icon property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>
@@ -183,6 +197,7 @@ RoomScreen.propTypes = {
   postComment: PropTypes.func,
   match: PropTypes.object.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  postFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -204,6 +219,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchComments(id) {
     dispatch(fetchCommentsAction(id));
+  },
+  postFavorite(id, status, action) {
+    dispatch(postFavoriteAction(id, status, action));
+  },
+  setActiveOffer(data) {
+    dispatch(setActiveOfferAction(offerAdaptToClient(data)));
   },
 });
 

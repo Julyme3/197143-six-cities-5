@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch) => ({
   postFavorite(id, status, action) {
     dispatch(postFavoriteAction(id, status, action));
   },
-  fetchNearOffers(id) {
-    dispatch(fetchNearbyOffersAction(id));
+  fetchNearOffers(data, id) {
+    dispatch(fetchNearbyOffersAction(data, id));
   }
 });
 

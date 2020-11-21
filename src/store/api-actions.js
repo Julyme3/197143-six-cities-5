@@ -13,6 +13,7 @@ import {
 import {offerAdaptToClient} from "../offers";
 import {AuthorizationStatus, APIRoute} from "../const";
 import {commentAdaptToClient} from "../reviews";
+import {formattedOfferAdaptToClient} from "../favorites";
 
 export const fetchOffersListAction = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
@@ -97,15 +98,16 @@ export const fetchCommentsAction = (id) => (dispatch, _getState, api) => (
 export const fetchFavoritesAction = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FAVORITE)
     .then(({data}) => {
-      dispatch(setFavoritesListAction(data.map(offerAdaptToClient())));
+      dispatch(setFavoritesListAction(formattedOfferAdaptToClient(data.map((offer) => offerAdaptToClient(offer, `near`)))));
     })
     .catch(()=>{})
 );
 
 export const postFavoriteAction = (id, status, action) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
-    .then(() => {
-      dispatch(action(id));
+    .then(({data}) => {
+     // dispatch(action(id));
+      dispatch(setActiveOfferAction(offerAdaptToClient(data)));
     })
     .catch(()=>{})
 );

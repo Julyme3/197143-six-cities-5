@@ -6,7 +6,7 @@ import {Type} from "../../const";
 import Rating from "../rating/rating";
 
 const OffserCard = (props) => {
-  const {offer, onChangeActiveOffer = undefined, className, classNameInner, onChangeFavorite} = props;
+  const {offer, onChangeActiveOffer = undefined, className, classNameInner, onChangeFavorite, width = `260px`, height = `200px`} = props;
   const isMainType = offer.typeComponent === Type.MAIN;
   const isFavorite = offer.isBookmark;
   const isFavoriteToNumber = Number(!isFavorite);
@@ -24,7 +24,7 @@ const OffserCard = (props) => {
       }
       <div className={`${classNameInner} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.preview_image} width={width} height={height} alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -62,6 +62,8 @@ OffserCard.propTypes = {
   className: PropTypes.string,
   classNameInner: PropTypes.string,
   onChangeFavorite: PropTypes.func,
+  width: PropTypes.string,
+  height: PropTypes.string,
 };
 
 export default OffserCard;
