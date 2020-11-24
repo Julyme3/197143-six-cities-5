@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListCities render 1`] = `
+<section
+  className="locations container"
+>
+  <ul
+    className="locations__list tabs__list"
+  >
+    <CitiesItem
+      activeCity="Amsterdam"
+      city="Amsterdam"
+      onClickHandler={[Function]}
+    />
+    <CitiesItem
+      activeCity="Amsterdam"
+      city="Cologne"
+      onClickHandler={[Function]}
+    />
+    <CitiesItem
+      activeCity="Amsterdam"
+      city="Brussels"
+      onClickHandler={[Function]}
+    />
+    <CitiesItem
+      activeCity="Amsterdam"
+      city="Paris"
+      onClickHandler={[Function]}
+    />
+    <CitiesItem
+      activeCity="Amsterdam"
+      city="Hamburg"
+      onClickHandler={[Function]}
+    />
+    <CitiesItem
+      activeCity="Amsterdam"
+      city="Dusseldorf"
+      onClickHandler={[Function]}
+    />
+  </ul>
+</section>
+`;

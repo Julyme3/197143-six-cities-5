@@ -69,8 +69,6 @@ const offers = [
   },
 ];
 
-//Mjest.mock(`../cities-item/cities-item`, () => `CitiesItem`);
-
 test(`Map render`, () => {
   const tree = renderer
     .create(

@@ -181,14 +181,14 @@ class RoomScreen extends PureComponent {
               </div>
             </div>
             <section className="property__map map">
-              {/*<Map*/}
-              {/*  offers={[...nearbyOffers, offer]}*/}
-              {/*  width={`100%`}*/}
-              {/*  height={`579px`}*/}
-              {/*  cityCoords={offer.city.location}*/}
-              {/*  zoom={offer.city.zoom}*/}
-              {/*  activeCardId={+this.id}*/}
-              {/*/>*/}
+              <Map
+                offers={[...nearbyOffers, offer]}
+                width={`100%`}
+                height={`579px`}
+                cityCoords={offer.city.location}
+                zoom={offer.city.zoom}
+                activeCardId={+this.id}
+              />
             </section>
           </section> || null
         }

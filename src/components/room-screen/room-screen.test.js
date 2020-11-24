@@ -8,6 +8,7 @@ jest.mock(`../reviews-list/reviews-list`, () => `ReviewsList`);
 jest.mock(`../offer-list-near/offer-list-near`, () => `OfferListNear`);
 jest.mock(`../../layouts/main-layout/main-layout`, () => `MainLayout`);
 jest.mock(`../rating/rating`, () => `Rating`);
+jest.mock(`../map/map`, () => `Map`);
 
 const noop = () => {};
 
@@ -139,7 +140,7 @@ const AuthorizationStatus = {
 
 const match = {
   params: {
-    id: 2,
+    id: `2`,
   },
 };
 
@@ -184,6 +185,9 @@ describe(`RoomScreen render`, () => {
               authorizationStatus={AuthorizationStatus.AUTH}
               postFavorite={noop}
               setActiveOffer={noop}
+              setStartLoading={noop}
+              commentStatus={true}
+              isLoadingComment={false}
               match={match}
             ><React.Fragment />
             </RoomScreen>

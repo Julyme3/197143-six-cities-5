@@ -78,7 +78,7 @@ test(`OfferListNear render`, () => {
           <OfferListNear
             offers={offers}
             postFavorite={noop}
-            updateFavorite={noop}
+            updateFavoriteNearby={noop}
             onChangeActiveItem={noop}
           />
         </BrowserRouter>

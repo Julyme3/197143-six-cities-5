@@ -16,12 +16,4 @@ leaflet.tileLayer = () => {
     addTo: () => {},
   };
 };
-leaflet.Icon.extend = (options) => {
-  return {
-    function() {
-      this.options = options;
-      return this;
-    },
-  };
-};
 module.exports = leaflet;
