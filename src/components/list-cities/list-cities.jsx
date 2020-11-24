@@ -37,7 +37,7 @@ class ListCities extends PureComponent {
                 onClickHandler={this.handleCityClick}
               />
             );
-          })}
+          }) || null}
         </ul>
       </section>
     );

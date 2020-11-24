@@ -13,7 +13,7 @@ import {SortType, Cities} from "../../const";
 import MainLayout from "../../layouts/main-layout/main-layout";
 import MainScreenEmpty from "../main-screen-empty/main-screen-empty";
 
-const MainPage = (props) => {
+const MainScreen = (props) => {
   const [activeSortType, setSortType] = useState(SortType.POPULAR);
   const {offers, activeCity} = props;
   const sortedOffers = useMemo(() => sortOffers(activeSortType, offers), [activeSortType, offers]);
@@ -36,7 +36,6 @@ const MainPage = (props) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <Sort
-                offers={offers}
                 onClickSort={(sort) => setSortType(sort)}
                 activeSortType={activeSortType}
               />
@@ -65,7 +64,7 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = {
+MainScreen.propTypes = {
   offers: OffersType,
   activeCity: PropTypes.string.isRequired,
   onChangeActiveItem: PropTypes.func.isRequired,
@@ -77,5 +76,5 @@ const mapStateToProps = (state) => ({
   activeCity: getActiveCitySelector(state),
 });
 
-export {MainPage};
-export default connect(mapStateToProps)(MainPage);
+export {MainScreen};
+export default connect(mapStateToProps)(MainScreen);

@@ -1,7 +1,6 @@
 import React, {memo} from "react";
 import PropTypes from "prop-types";
 import {SortType} from "../../const";
-import {OffersType} from "../../types";
 
 const sortes = Object.values(SortType);
 
@@ -35,7 +34,6 @@ const Sort = ({activeSortType, onClickSort}) => {
 };
 
 Sort.propTypes = {
-  offers: OffersType,
   onClickSort: PropTypes.func.isRequired,
   activeSortType: PropTypes.string.isRequired,
 };

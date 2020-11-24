@@ -1,6 +1,6 @@
 import React, {PureComponent, createRef} from "react";
 import {connect} from "react-redux";
-import PropsTypes from "prop-types";
+import PropTypes from "prop-types";
 import MainLayout from "../../layouts/main-layout/main-layout";
 import {login} from "../../store/api-actions";
 
@@ -71,7 +71,7 @@ class AuthScreen extends PureComponent {
 }
 
 AuthScreen.propTypes = {
-  onSubmit: PropsTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

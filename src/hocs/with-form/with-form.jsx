@@ -1,8 +1,5 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {setStartLoadingAction} from "../../store/actions";
-import {connect} from "react-redux";
-import {getIsLoading, getPostCommentStatus} from "../../store/reducers/process/selectors";
 
 const MIN_LENGTH_COMMENT = 50;
 const MAX_LENGTH_COMMENT = 300;
@@ -98,14 +95,7 @@ const withForm = (Component) => {
     commentStatus: PropTypes.bool,
   };
 
-  const mapStateToProps = (state) => ({
-    isLoading: getIsLoading(state),
-    commentStatus: getPostCommentStatus(state),
-  });
-
-  return connect(mapStateToProps, {
-    setStartLoading: setStartLoadingAction,
-  })(WithForm);
+  return WithForm;
 };
 
 export default withForm;

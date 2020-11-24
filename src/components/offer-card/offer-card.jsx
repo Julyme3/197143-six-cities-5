@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {OfferType} from "../../types";
 import Rating from "../rating/rating";
 
-const OffserCard = (props) => {
+const OfferCard = (props) => {
   const {offer,
     onChangeActiveOffer = undefined,
     className,
@@ -28,7 +28,7 @@ const OffserCard = (props) => {
       }
       <div className={`${classNameInner} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.preview_image} width={width} height={height} alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={width} height={height} alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -62,7 +62,7 @@ const OffserCard = (props) => {
   );
 };
 
-OffserCard.propTypes = {
+OfferCard.propTypes = {
   offer: OfferType,
   onChangeActiveOffer: PropTypes.func,
   className: PropTypes.string,
@@ -72,4 +72,4 @@ OffserCard.propTypes = {
   height: PropTypes.string,
 };
 
-export default OffserCard;
+export default OfferCard;

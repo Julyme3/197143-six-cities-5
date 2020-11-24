@@ -23,8 +23,9 @@ import {
 } from "../../store/reducers/offer-data/selectors";
 import Rating from "../rating/rating";
 import {getAuthorizationStatusSelector} from "../../store/reducers/user/selectors";
-import {setActiveOfferAction} from "../../store/actions";
+import {setActiveOfferAction, setStartLoadingAction} from "../../store/actions";
 import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import {getIsLoading, getPostCommentStatus} from "../../store/reducers/process/selectors";
 
 const MAX_COUNT_IMG = 6;
 const ReviewFormWrapped = withForm(ReviewForm);
@@ -51,7 +52,14 @@ class RoomScreen extends PureComponent {
   }
 
   render() {
-    const {activeOffer: offer, reviews, nearbyOffers, authorizationStatus, postComment} = this.props;
+    const {activeOffer: offer,
+      reviews,
+      nearbyOffers,
+      authorizationStatus,
+      postComment,
+      commentStatus,
+      setStartLoading,
+      isLoadingComment} = this.props;
     const isLoading = !offer;
 
     if (!offer) {
@@ -161,31 +169,38 @@ class RoomScreen extends PureComponent {
                   </h2>
                   <ReviewsList reviews={reviews}/>
                   {authorizationStatus === AuthorizationStatus.AUTH &&
-                    <ReviewFormWrapped id={this.id} commentPostAction={postComment} />
+                    <ReviewFormWrapped
+                      id={this.id}
+                      commentPostAction={postComment}
+                      isLoading={isLoadingComment}
+                      commentStatus={commentStatus}
+                      setStartLoading={setStartLoading}
+                    />
                   }
                 </section>
               </div>
             </div>
             <section className="property__map map">
-              <Map
-                offers={[...nearbyOffers, offer]}
-                width={`100%`}
-                height={`579px`}
-                cityCoords={offer.city.location}
-                zoom={offer.city.zoom}
-                activeCardId={+this.id}
-              />
+              {/*<Map*/}
+              {/*  offers={[...nearbyOffers, offer]}*/}
+              {/*  width={`100%`}*/}
+              {/*  height={`579px`}*/}
+              {/*  cityCoords={offer.city.location}*/}
+              {/*  zoom={offer.city.zoom}*/}
+              {/*  activeCardId={+this.id}*/}
+              {/*/>*/}
             </section>
-          </section>
+          </section> || null
         }
-        <div className="container">
+        {nearbyOffers.length && <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferListNearWrapped
               offers={nearbyOffers}
             />
           </section>
-        </div>
+        </div> || null
+        }
       </MainLayout>
     );
   }
@@ -203,6 +218,9 @@ RoomScreen.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   postFavorite: PropTypes.func.isRequired,
   setActiveOffer: PropTypes.func.isRequired,
+  setStartLoading: PropTypes.func,
+  isLoadingComment: PropTypes.bool,
+  commentStatus: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -210,6 +228,8 @@ const mapStateToProps = (state) => ({
   nearbyOffers: getNearbyOffersSliceSelector(state),
   authorizationStatus: getAuthorizationStatusSelector(state),
   reviews: getCommentsSelector(state),
+  isLoadingComment: getIsLoading(state),
+  commentStatus: getPostCommentStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -230,6 +250,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setActiveOffer(data) {
     dispatch(setActiveOfferAction(data));
+  },
+  setStartLoading(data) {
+    dispatch(setStartLoadingAction(data));
   },
 });
 

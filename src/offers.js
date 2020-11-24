@@ -54,6 +54,7 @@ export const offerAdaptToClient = (offer, type) => {
         name: offer.title,
         raiting: offer.rating,
         isBookmark: offer.is_favorite,
+        previewImage: offer.preview_image,
         city: {
           location: [offer.city.location.latitude, offer.city.location.longitude],
           name: offer.city.name,
@@ -86,6 +87,7 @@ export const offerAdaptToClient = (offer, type) => {
   delete adaptedOffer.rating;
   delete adaptedOffer.images;
   delete adaptedOffer.location;
+  delete adaptedOffer.preview_image;
 
   return adaptedOffer;
 };

@@ -75,7 +75,7 @@ export const fetchNearbyOffersAction = (id) => (dispatch, _getState, api) => (
 );
 
 export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.COMMENTS}/`, {
+  api.post(`${APIRoute.COMMENTS}/${id}`, {
     rating,
     comment,
   })

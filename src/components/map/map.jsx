@@ -53,6 +53,18 @@ class Map extends PureComponent {
       }
     });
 
+    // const icon = leaflet.icon({
+    //   options: {
+    //     iconSize: [30, 30],
+    //     iconUrl: MARKER_URL,
+    //   }
+    // });
+    // const activeIcon = leaflet.icon({
+    //   options: {
+    //     iconSize: [30, 30],
+    //     iconUrl: MARKER_ACTIVE_URL,
+    //   }
+    // });
     const icon = new LeftIcon({iconUrl: MARKER_URL});
     const activeIcon = new LeftIcon({iconUrl: MARKER_ACTIVE_URL});
     const offerCords = offers.map((offer) => offer.coords);
