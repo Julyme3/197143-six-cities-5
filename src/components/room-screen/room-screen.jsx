@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {AuthorizationStatus} from "../../const";
 import {
   fetchCommentsAction,
-  fetchFullOffer,
+  fetchFullOfferAction,
   fetchNearbyOffersAction,
   postCommentAction,
   postFavoriteAction,
@@ -39,8 +39,8 @@ class RoomScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const {fetchFullOfferAction, fetchNearbyOffers, fetchComments} = this.props;
-    fetchFullOfferAction(this.id);
+    const {fetchFullOffer, fetchNearbyOffers, fetchComments} = this.props;
+    fetchFullOffer(this.id);
     fetchComments(this.id);
     fetchNearbyOffers(this.id);
   }
@@ -210,7 +210,7 @@ RoomScreen.propTypes = {
   activeOffer: OfferType,
   reviews: ReviewsType,
   nearbyOffers: OffersType,
-  fetchFullOfferAction: PropTypes.func.isRequired,
+  fetchFullOffer: PropTypes.func.isRequired,
   fetchNearbyOffers: PropTypes.func.isRequired,
   fetchComments: PropTypes.func.isRequired,
   postComment: PropTypes.func,
@@ -233,8 +233,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchFullOfferAction(id) {
-    dispatch(fetchFullOffer(id));
+  fetchFullOffer(id) {
+    dispatch(fetchFullOfferAction(id));
   },
   fetchNearbyOffers(id) {
     dispatch(fetchNearbyOffersAction(id));

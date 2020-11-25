@@ -17,6 +17,65 @@ exports[`ReviewsList render 1`] = `
           alt="Reviews avatar"
           className="reviews__avatar user__avatar"
           height="54"
+          src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/3.jpg"
+          width="54"
+        />
+      </div>
+      <span
+        className="reviews__user-name"
+      >
+        Isaac
+      </span>
+    </div>
+    <div
+      className="reviews__info"
+    >
+      <div
+        className="reviews__rating rating"
+      >
+        <div
+          className="reviews__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "100%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        className="reviews__text"
+      >
+        The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.
+      </p>
+      <time
+        className="reviews__time"
+        dateTime="November 2020"
+      >
+        November 2020
+      </time>
+    </div>
+  </li>
+  <li
+    className="reviews__item"
+  >
+    <div
+      className="reviews__user user"
+    >
+      <div
+        className="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Reviews avatar"
+          className="reviews__avatar user__avatar"
+          height="54"
           src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/10.jpg"
           width="54"
         />
@@ -60,65 +119,6 @@ exports[`ReviewsList render 1`] = `
         dateTime="November 2020"
       >
         November 2020
-      </time>
-    </div>
-  </li>
-  <li
-    className="reviews__item"
-  >
-    <div
-      className="reviews__user user"
-    >
-      <div
-        className="reviews__avatar-wrapper user__avatar-wrapper"
-      >
-        <img
-          alt="Reviews avatar"
-          className="reviews__avatar user__avatar"
-          height="54"
-          src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/12.jpg"
-          width="54"
-        />
-      </div>
-      <span
-        className="reviews__user-name"
-      >
-        Julia
-      </span>
-    </div>
-    <div
-      className="reviews__info"
-    >
-      <div
-        className="reviews__rating rating"
-      >
-        <div
-          className="reviews__stars rating__stars"
-        >
-          <span
-            style={
-              Object {
-                "width": "56%",
-              }
-            }
-          />
-          <span
-            className="visually-hidden"
-          >
-            Rating
-          </span>
-        </div>
-      </div>
-      <p
-        className="reviews__text"
-      >
-        The room was spacious and clean.
-      </p>
-      <time
-        className="reviews__time"
-        dateTime="October 2020"
-      >
-        October 2020
       </time>
     </div>
   </li>

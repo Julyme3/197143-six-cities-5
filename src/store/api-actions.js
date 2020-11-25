@@ -15,6 +15,7 @@ import {AuthorizationStatus, APIRoute, HttpCode} from "../const";
 import {commentAdaptToClient} from "../reviews";
 import {formattedOfferAdaptToClient} from "../favorites";
 
+// done
 export const fetchOffersListAction = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
@@ -28,12 +29,14 @@ export const fetchOffersListAction = () => (dispatch, _getState, api) => (
     })
 );
 
+// done
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH)))
     .catch(()=>{})
 );
 
+// done
 export const login = (data) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, data)
     .then(() => {
@@ -48,7 +51,8 @@ export const login = (data) => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchFullOffer = (id) => (dispatch, _getState, api) => (
+// done
+export const fetchFullOfferAction = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${id}`)
     .then(({data}) => {
       dispatch(setActiveOfferAction(offerAdaptToClient(data)));
@@ -61,6 +65,7 @@ export const fetchFullOffer = (id) => (dispatch, _getState, api) => (
     })
 );
 
+// done
 export const fetchNearbyOffersAction = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${id}/nearby`)
     .then(({data}) => {
@@ -74,6 +79,7 @@ export const fetchNearbyOffersAction = (id) => (dispatch, _getState, api) => (
     })
 );
 
+// done
 export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${id}`, {
     rating,
@@ -94,6 +100,7 @@ export const postCommentAction = (id, {rating, comment}) => (dispatch, _getState
     })
 );
 
+// done
 export const fetchCommentsAction = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.COMMENTS}/${id}`)
     .then(({data}) => {

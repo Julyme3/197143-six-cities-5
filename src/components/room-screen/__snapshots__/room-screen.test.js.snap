@@ -197,20 +197,20 @@ exports[`RoomScreen render RoomScreen for Authorization user 1`] = `
                 Object {
                   "date": "2020-11-05T13:38:44.753Z",
                   "dateFormated": "November 2020",
+                  "id": 3,
+                  "name": "Isaac",
+                  "raiting": 5,
+                  "src": "https://assets.htmlacademy.ru/intensives/javascript-3/avatar/3.jpg",
+                  "text": "The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.",
+                },
+                Object {
+                  "date": "2020-11-05T13:38:44.753Z",
+                  "dateFormated": "November 2020",
                   "id": 2,
                   "name": "Christina",
                   "raiting": 4,
                   "src": "https://assets.htmlacademy.ru/intensives/javascript-3/avatar/10.jpg",
                   "text": "I stayed here for one night and it was an unpleasant experience.",
-                },
-                Object {
-                  "date": "2020-10-05T13:38:44.753Z",
-                  "dateFormated": "October 2020",
-                  "id": 3,
-                  "name": "Julia",
-                  "raiting": 2.8,
-                  "src": "https://assets.htmlacademy.ru/intensives/javascript-3/avatar/12.jpg",
-                  "text": "The room was spacious and clean.",
                 },
               ]
             }
@@ -682,20 +682,20 @@ exports[`RoomScreen render RoomScreen for no Authorization user 1`] = `
                 Object {
                   "date": "2020-11-05T13:38:44.753Z",
                   "dateFormated": "November 2020",
+                  "id": 3,
+                  "name": "Isaac",
+                  "raiting": 5,
+                  "src": "https://assets.htmlacademy.ru/intensives/javascript-3/avatar/3.jpg",
+                  "text": "The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.",
+                },
+                Object {
+                  "date": "2020-11-05T13:38:44.753Z",
+                  "dateFormated": "November 2020",
                   "id": 2,
                   "name": "Christina",
                   "raiting": 4,
                   "src": "https://assets.htmlacademy.ru/intensives/javascript-3/avatar/10.jpg",
                   "text": "I stayed here for one night and it was an unpleasant experience.",
-                },
-                Object {
-                  "date": "2020-10-05T13:38:44.753Z",
-                  "dateFormated": "October 2020",
-                  "id": 3,
-                  "name": "Julia",
-                  "raiting": 2.8,
-                  "src": "https://assets.htmlacademy.ru/intensives/javascript-3/avatar/12.jpg",
-                  "text": "The room was spacious and clean.",
                 },
               ]
             }

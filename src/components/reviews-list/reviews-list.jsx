@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import {ReviewsType} from "../../types";
-import Review from "../Review/review";
+import Review from "../review/review";
 import {sortByDateDown} from "../../reviews";
 
 const MAX_COUNT = 10;
