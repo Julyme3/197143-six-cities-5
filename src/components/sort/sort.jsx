@@ -22,7 +22,7 @@ const Sort = ({activeSortType, onClickSort}) => {
               className={`places__option ${activeSortType === sort ? `places__option--active` : ``}`}
               tabIndex ="0"
               data-sort-type={sort}
-              onClick={(e) => onClickSort(e.target.dataset.sortType)}
+              onClick={() => onClickSort(sort)}
             >
               {sort}
             </li>

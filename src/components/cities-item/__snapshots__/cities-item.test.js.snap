@@ -3,7 +3,6 @@
 exports[`CitiesItem render Current city is active 1`] = `
 <li
   className="locations__item"
-  data-name="Amsterdam"
   onClick={[Function]}
 >
   <a
@@ -20,7 +19,6 @@ exports[`CitiesItem render Current city is active 1`] = `
 exports[`CitiesItem render Current city is not active 1`] = `
 <li
   className="locations__item"
-  data-name="Amsterdam"
   onClick={[Function]}
 >
   <a
