@@ -9,6 +9,14 @@ export const ActionType = {
   SET_START_LOADING_ACTION: `SET_START_LOADING_ACTION`,
   SET_STOP_LOADING_ACTION: `SET_STOP_LOADING_ACTION`,
   SET_POST_COMMENT_STATUS_ACTION: `SET_POST_COMMENT_STATUS_ACTION`,
+  SET_COMMENTS_ACTION: `SET_COMMENTS_ACTION`,
+  SET_LIST_FAVORITE_ACTION: `SET_LIST_FAVORITE_ACTION`,
+  SET_IS_FAVORITE_ACTION: `SET_IS_FAVORITE_ACTION`,
+  UPDATE_FAVORITE_ACTION: `UPDATE_FAVORITE_ACTION`,
+  UPDATE_FAVORITE_NEARBY_ACTION: `UPDATE_FAVORITE_NEARBY_ACTION`,
+  UPDATE_FAVORITE_IN_LIST_ACTION: `UPDATE_FAVORITE_IN_LIST_ACTION`,
+  START_LOADING_ACTION: `START_LOADING_ACTION`,
+  STOP_LOADING_ACTION: `STOP_LOADING_ACTION`,
 };
 
 export const setOffersAction = (payload) => ({
@@ -56,4 +64,31 @@ export const setStopLoadingAction = () => ({
 
 export const setPostCommentStatusAction = () => ({
   type: ActionType.SET_POST_COMMENT_STATUS_ACTION,
+});
+
+export const setCommentsAction = (payload) => ({
+  type: ActionType.SET_COMMENTS_ACTION,
+  payload,
+});
+
+export const setFavoritesListAction = (payload) => ({
+  type: ActionType.SET_LIST_FAVORITE_ACTION,
+  payload,
+});
+
+export const updateFavoriteAction = (payload) => ({
+  type: ActionType.UPDATE_FAVORITE_ACTION,
+  payload,
+});
+
+export const updateFavoriteNearbyAction = (payload) => {
+  return {
+    type: ActionType.UPDATE_FAVORITE_NEARBY_ACTION,
+    payload,
+  };
+};
+
+export const updateFavoriteInListAction = (payload) => ({
+  type: ActionType.UPDATE_FAVORITE_IN_LIST_ACTION,
+  payload,
 });

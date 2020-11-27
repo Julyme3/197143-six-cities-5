@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfferCardFavorite render 1`] = `
+<OfferCard
+  className="near-places__card favorites__card"
+  classNameInner="near-places__image-wrapper favorites__image-wrapper"
+  height="100px"
+  onChangeActiveOffer={[Function]}
+  width="100px"
+/>
+`;

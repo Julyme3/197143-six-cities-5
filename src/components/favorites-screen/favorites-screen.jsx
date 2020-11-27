@@ -1,86 +1,93 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import {Link} from "react-router-dom";
-import {OffersType} from "../../types";
+import {FavoriteOffers} from "../../types";
+import PropTypes from "prop-types";
 import Footer from "../footer/footer";
 import MainLayout from "../../layouts/main-layout/main-layout";
+import {connect} from "react-redux";
+import {fetchFavoritesAction} from "../../store/api-actions";
+import {getFavorites, getIsLoading} from "../../store/reducers/favorites/selectors";
+import FavoriteList from "../favorite-list/favorite-list";
+import FavoritesEmpty from "../favorites-empty/favorites-empty";
+import {setStartLoadingAction} from "../../store/actions";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
 
-const FavoritesScreen = (props) => {
-  const bookMarkOffers = props.offers.filter((offer) => offer.isBookmark);
+const FavoriteListWrapped = withActiveItem(FavoriteList);
+class FavoritesScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <>
-      <MainLayout
-        classNameWrap="page__main--favorites"
-      >
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <Link className="locations__item-link" to="/">
-                      <span>Amsterdam</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {bookMarkOffers.map((offer) => {
-                    return (
-                      <article
-                        className="favorites__card place-card"
-                        key={offer.id}
-                      >
-                        <div className="favorites__image-wrapper place-card__image-wrapper">
-                          <a href="#">
-                            <img
-                              className="place-card__image"
-                              src={offer.src[0]}
-                              width="150" height="110"
-                              alt="Place image"
-                            />
-                          </a>
-                        </div>
-                        <div className="favorites__card-info place-card__info">
-                          <div className="place-card__price-wrapper">
-                            <div className="place-card__price">
-                              <b className="place-card__price-value">€{offer.price}</b>
-                              <span className="place-card__price-text">/&nbsp;night</span>
-                            </div>
-                            <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                              <svg className="place-card__bookmark-icon" width="18" height="19">
-                                <use xlinkHref="#icon-bookmark"></use>
-                              </svg>
-                              <span className="visually-hidden">In bookmarks</span>
-                            </button>
-                          </div>
-                          <div className="place-card__rating rating">
-                            <div className="place-card__stars rating__stars">
-                              <span style={{width: `100%`}}></span>
-                              <span className="visually-hidden">Rating</span>
+  componentDidMount() {
+    this.props.startLoading();
+    this.props.fetchFavorite();
+  }
+
+  render() {
+    const {favoriteOffers, isLoading} = this.props;
+    const isEmpty = Object.keys(favoriteOffers).length === 0 && !isLoading;
+    return (
+      <>
+        <MainLayout
+          classNameWrap={`page__main--favorites ${isEmpty && `page__main--favorites-empty` || ``}`}
+          className={`${isEmpty && `page--favorites-empty` || ``}`}
+        >
+          {!isEmpty ?
+            <div className="page__favorites-container container">
+              <section className="favorites">
+                <h1 className="favorites__title">Saved listing</h1>
+                <ul className="favorites__list">
+                  {Object.keys(favoriteOffers)
+                    .map((city) => {
+                      return (
+                        favoriteOffers[city].length ? <li className="favorites__locations-items" key={city}>
+                          <div className="favorites__locations locations locations--current">
+                            <div className="locations__item">
+                              <Link className="locations__item-link" to="/">
+                                <span>{city}</span>
+                              </Link>
                             </div>
                           </div>
-                          <h2 className="place-card__name">
-                            <Link to={`/offer/${offer.id}`}>{offer.name}</Link>
-                          </h2>
-                          <p className="place-card__type">{offer.type}</p>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </MainLayout>
-      <Footer />
-    </>
-  );
-};
+                          <FavoriteListWrapped
+                            list={favoriteOffers[city]}
+                          />
+                        </li>
+                          : null
+                      );
+                    })}
+                </ul>
+              </section>
+            </div>
+            :
+            <FavoritesEmpty />
+          }
+        </MainLayout>
+        <Footer />
+      </>
+    );
+  }
+}
 
 FavoritesScreen.propTypes = {
-  offers: OffersType
+  fetchFavorite: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  startLoading: PropTypes.func,
+  favoriteOffers: FavoriteOffers,
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  favoriteOffers: getFavorites(state),
+  isLoading: getIsLoading(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchFavorite() {
+    dispatch(fetchFavoritesAction());
+  },
+  startLoading() {
+    dispatch(setStartLoadingAction());
+  }
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);

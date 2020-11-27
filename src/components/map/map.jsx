@@ -47,15 +47,15 @@ class Map extends PureComponent {
   }
 
   addMarkers(offers, activeCardId) {
-    const LeftIcon = leaflet.Icon.extend({
-      options: {
-        iconSize: [30, 30],
-      }
+    const icon = leaflet.icon({
+      iconSize: [30, 30],
+      iconUrl: MARKER_URL,
     });
-
-    const icon = new LeftIcon({iconUrl: MARKER_URL});
-    const activeIcon = new LeftIcon({iconUrl: MARKER_ACTIVE_URL});
-    const offerCords = [...offers.map((offer) => offer.coords)];
+    const activeIcon = leaflet.icon({
+      iconSize: [30, 30],
+      iconUrl: MARKER_ACTIVE_URL,
+    });
+    const offerCords = offers.map((offer) => offer.coords);
     const isActivePin = activeCardId ? activeCardId : null;
 
     offerCords.forEach((offer, i) => {

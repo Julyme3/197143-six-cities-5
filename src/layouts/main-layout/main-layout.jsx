@@ -18,7 +18,7 @@ const MainLayout = (props) => {
 };
 
 MainLayout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   classNameWrap: PropTypes.string,
 };

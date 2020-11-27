@@ -32,7 +32,8 @@ export const ReviewType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   src: PropTypes.string,
   raiting: PropTypes.number.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
+  dateFormated: PropTypes.string.isRequired,
   text: PropTypes.string,
 });
 
@@ -41,3 +42,5 @@ export const ReviewsType = PropTypes.arrayOf(ReviewType);
 export const CitiesType = PropTypes.arrayOf(PropTypes.string).isRequired;
 
 export const OffersType = PropTypes.arrayOf(OfferType).isRequired;
+
+export const FavoriteOffers = PropTypes.objectOf(PropTypes.arrayOf(OfferType));

@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainScreen render MainScreen empty render 1`] = `
+<MainLayout
+  className="page--gray page--main"
+  classNameWrap="page__main--index page__main--index-empty"
+>
+  <h1
+    className="visually-hidden"
+  >
+    Cities
+  </h1>
+  <div
+    className="tabs"
+  >
+    <ListCities
+      cities={
+        Array [
+          "Amsterdam",
+          "Cologne",
+          "Brussels",
+          "Paris",
+          "Hamburg",
+          "Dusseldorf",
+        ]
+      }
+    />
+  </div>
+  <div
+    className="cities"
+  >
+    <MainScreenEmpty
+      activeCity="Amsterdam"
+    />
+  </div>
+</MainLayout>
+`;
+
+exports[`MainScreen render MainScreen with offers render 1`] = `
+<MainLayout
+  className="page--gray page--main"
+  classNameWrap="page__main--index "
+>
+  <h1
+    className="visually-hidden"
+  >
+    Cities
+  </h1>
+  <div
+    className="tabs"
+  >
+    <ListCities
+      cities={
+        Array [
+          "Amsterdam",
+          "Cologne",
+          "Brussels",
+          "Paris",
+          "Hamburg",
+          "Dusseldorf",
+        ]
+      }
+    />
+  </div>
+  <div
+    className="cities"
+  >
+    <div
+      className="cities__places-container container"
+    >
+      <section
+        className="cities__places places"
+      >
+        <h2
+          className="visually-hidden"
+        >
+          Places
+        </h2>
+        <b
+          className="places__found"
+        >
+          2
+           places to stay in 
+          Amsterdam
+        </b>
+        <Sort
+          activeSortType="Popular"
+          onClickSort={[Function]}
+        />
+        <OfferListMain
+          offers={
+            Array [
+              Object {
+                "city": Object {
+                  "location": Array [
+                    50.938361,
+                    6.959974,
+                  ],
+                  "name": "Cologne",
+                  "zoom": 13,
+                },
+                "coords": Array [
+                  50.957361,
+                  6.9509739999999995,
+                ],
+                "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                "details": Object {
+                  "adults": 4,
+                  "bedrooms": 3,
+                  "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                  "insideItems": Array [
+                    "Laptop friendly workspace",
+                    "Washer",
+                  ],
+                },
+                "id": 1,
+                "isBookmark": false,
+                "isPremium": false,
+                "name": "The house among olive ",
+                "previewImage": "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/14.jpg",
+                "price": 493,
+                "raiting": 3.8,
+                "src": Array [
+                  "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/15.jpg",
+                  "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/16.jpg",
+                ],
+                "type": "house",
+                "typeComponent": "main",
+                "user": Object {
+                  "id": 25,
+                  "isSuper": true,
+                  "name": "Angelina",
+                  "src": "img/avatar-angelina.jpg",
+                },
+              },
+              Object {
+                "city": Object {
+                  "location": Array [
+                    50.938361,
+                    6.959974,
+                  ],
+                  "name": "Cologne",
+                  "zoom": 13,
+                },
+                "coords": Array [
+                  50.957361,
+                  6.9509739999999995,
+                ],
+                "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                "details": Object {
+                  "adults": 4,
+                  "bedrooms": 3,
+                  "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                  "insideItems": Array [
+                    "Laptop friendly workspace",
+                    "Washer",
+                  ],
+                },
+                "id": 2,
+                "isBookmark": false,
+                "isPremium": false,
+                "name": "The house among olive ",
+                "previewImage": "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/14.jpg",
+                "price": 493,
+                "raiting": 3.8,
+                "src": Array [
+                  "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/15.jpg",
+                  "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/16.jpg",
+                ],
+                "type": "house",
+                "typeComponent": "main",
+                "user": Object {
+                  "id": 25,
+                  "isSuper": true,
+                  "name": "Angelina",
+                  "src": "img/avatar-angelina.jpg",
+                },
+              },
+            ]
+          }
+          onChangeActiveOffer={[Function]}
+        />
+      </section>
+      <div
+        className="cities__right-section"
+      >
+        <section
+          className="cities__map map"
+        >
+          <Map
+            activeCardId={null}
+            cityCoords={
+              Array [
+                50.938361,
+                6.959974,
+              ]
+            }
+            height="752px"
+            offers={
+              Array [
+                Object {
+                  "city": Object {
+                    "location": Array [
+                      50.938361,
+                      6.959974,
+                    ],
+                    "name": "Cologne",
+                    "zoom": 13,
+                  },
+                  "coords": Array [
+                    50.957361,
+                    6.9509739999999995,
+                  ],
+                  "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                  "details": Object {
+                    "adults": 4,
+                    "bedrooms": 3,
+                    "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                    "insideItems": Array [
+                      "Laptop friendly workspace",
+                      "Washer",
+                    ],
+                  },
+                  "id": 1,
+                  "isBookmark": false,
+                  "isPremium": false,
+                  "name": "The house among olive ",
+                  "previewImage": "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/14.jpg",
+                  "price": 493,
+                  "raiting": 3.8,
+                  "src": Array [
+                    "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/15.jpg",
+                    "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/16.jpg",
+                  ],
+                  "type": "house",
+                  "typeComponent": "main",
+                  "user": Object {
+                    "id": 25,
+                    "isSuper": true,
+                    "name": "Angelina",
+                    "src": "img/avatar-angelina.jpg",
+                  },
+                },
+                Object {
+                  "city": Object {
+                    "location": Array [
+                      50.938361,
+                      6.959974,
+                    ],
+                    "name": "Cologne",
+                    "zoom": 13,
+                  },
+                  "coords": Array [
+                    50.957361,
+                    6.9509739999999995,
+                  ],
+                  "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                  "details": Object {
+                    "adults": 4,
+                    "bedrooms": 3,
+                    "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+                    "insideItems": Array [
+                      "Laptop friendly workspace",
+                      "Washer",
+                    ],
+                  },
+                  "id": 2,
+                  "isBookmark": false,
+                  "isPremium": false,
+                  "name": "The house among olive ",
+                  "previewImage": "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/14.jpg",
+                  "price": 493,
+                  "raiting": 3.8,
+                  "src": Array [
+                    "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/15.jpg",
+                    "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/16.jpg",
+                  ],
+                  "type": "house",
+                  "typeComponent": "main",
+                  "user": Object {
+                    "id": 25,
+                    "isSuper": true,
+                    "name": "Angelina",
+                    "src": "img/avatar-angelina.jpg",
+                  },
+                },
+              ]
+            }
+            width="512px"
+            zoom={13}
+          />
+        </section>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+`;
